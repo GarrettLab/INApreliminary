@@ -10,7 +10,7 @@ library(devtools)
 
 devtools::install_github("GarrettLab/INApreliminary")
 
-library(seedHealth)
+library(INApreliminary)
 
 ### A general reference for impact network analysis is
 
