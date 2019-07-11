@@ -2,7 +2,7 @@
 
 This preliminary version of the INA (impact network analysis) R package includes a subset of the main INA functions.  More functions will be added shortly.
 
-### The following commands can be used to install and load the seedHealth package in R
+### The following commands can be used to install and load the INApreliminary package in R
 
 install.packages("devtools")
 
