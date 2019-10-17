@@ -1,33 +1,31 @@
 
-#' Evaluate individual nodes for their value in invasion detection (invasion starting from a single node) in one simulation
+#' Evaluate individual nodes for their value in invasion detection (invasion starting from a single node) in one realization
 #'
-#' For a given starting node (only one at this point), yields a vector of the number of nodes invaded for each sampling node by the time invasion reaches (is detected at) that sampling node, and the time step of first invasion at the sampling node - for one simulation.  Includes the option for differentially weighted probabilities of the existence of links.
-#' @param adjmat adjacency matrix for evaluation
-#' @param wtvec vector of weights corresponding to nodes associated with the adjacency matrix adjmat
+#' For a given introduction node (only one at this point), yields two outputs for one realization.  outmat has rows=time steps, columns = nodes, and entries = invasion status for each node at each time step (1 = invaded, 0 = not invaded).  sampnodes has rows = nodes, first column = time step at which invasion is detected (Inf if node is never reached), second column = the number of nodes invaded at the time of detection, third column = the number of nodes not invaded at the time of detection.
+#' @param adjmat adjacency matrix to be evaluated; if stoch=T, the entries are the probabilities that a link exists in any given realization
 #' @param start.choice number of node where invasion starts
-#' @param stoch logical var indicating whether adjacency matrix entries are fixed or probabilities
+#' @param stoch logical var indicating whether adjacency matrix entries are fixed or probabilities (default is T)
 #' @keywords prioritization sampling
 #' @export
 #' @examples
-#' onestart(adjmat=Amat, wtvec= ___, start.choice=2) # assumes Amat exists - more complete example to be added
-#' onestart(adjmat=sAmat, wtvec= ___, start.choice=2,stoch=T) # assumes Amat exists - more complete example to be added
+#' Amat <- matrix(c(1,0,0,0,1,1,0,0,0,1,1,0,1,1,1,1),nrow=4,ncol=4)
+#' onestart(adjmat=Amat, start.choice=2, stoch=F) 
+#' sAmat <- Amat * 0.7 # each potential link has probability 0.7 of existing in one realization
+#' onestart(adjmat=sAmat, start.choice=2, stoch=T) 
 
-# to do - GT
-# to do - improve examples
-# to do - adjust option for deterministic 
-# to do - consider adjusting assumption that the matrix would start out as ones and zeroes, and then weights modify
-
-onestart <- function(adjmat, wtvec, start.choice, stoch=T){
+onestart <- function(adjmat, start.choice, stoch){
    
+  # the adjacency matrix is assumed to have link sources as rows, and link sinks as columns
+
   dimL <- dim(adjmat)[1] # number of rows of adjacency matrix
   t1 <- matrix(0 * 1:dimL, nrow=1)
   t1[,start.choice] <- 1 # starting node given status 1
-  
-  # if stochastic , generate the adjacency matrix for this simulation
-    # if stochastic, assumes the adjacency matrix is made up of probabilities [might modify]
 
-  if(stoch){ # consider temporal resolution of stochasticity - this version sets to one mat indefinitely within sim
-    adjmat <- t(wtvec * t(adjmat)) # weighting
+  # if stochastic, generate the adjacency matrix for this realization - assumes the input adjacency matrix is made up of probabilities
+
+  # (in future versions, consider options for temporal resolution of stochasticity - this version sets to one specific matrix throughout realization)
+
+  if(stoch){ 
     adjmat <- (matrix(runif(dimL^2), ncol=dimL) < adjmat)
   }
 
@@ -35,42 +33,46 @@ onestart <- function(adjmat, wtvec, start.choice, stoch=T){
 
   outmat <- t1
   infcount.pre <- 1
-  infcount.post <- -9 # perhaps add improvement 
+  infcount.post <- -99
 
   while(sum(t1) < dimL & infcount.pre != infcount.post){
-    infcount.pre <- sum(t1) # perhaps change to infcount.pre <- infcount.post
+    infcount.pre <- sum(t1) 
     t1 <- as.numeric(t1 %*% adjmat > 0)
     infcount.post <- sum(t1)
     outmat <- rbind(outmat,t1) # row i is the ith time point
   }
 
-  # find the num infected for each single sampling node, 
-     # assuming infected node stays infected
+  # assign row names 
+  rownames(outmat) <- 1:(dim(outmat)[1])
+
+  # find the num infected for each individual sampling node, 
+     # assuming invaded node stays invaded
 	# consider whether to set diag
 
   # find the number of nodes infected at each time
   inft <- rowSums(outmat)
 
-  # find the first time each node is invaded, and number of nodes infected at that time
+  # find the first time each node is invaded, and number of nodes invaded at that time
   firstt <- -99 + 0*1:dimL # first time each node is invaded
-  numt <- firstt # number of nodes infected at that time
+  numinvt <- firstt # number of nodes invaded at that time
 
   for (i in 1:dimL){ # col i is the ith sample node
 
-    if (sum(outmat[,i] > 0)){ # if node i ever gets infected
+    if (sum(outmat[,i] > 0)){ # if node i ever gets invaded
       firstt[i] <- min(which(outmat[,i] > 0)) # first time
-      numt[i] <- inft[firstt[i]] # how many nodes at that time
+      numinvt[i] <- inft[firstt[i]] # how many nodes at that time
     }
     else {
       firstt[i] <- Inf
-      numt[i] <- max(inft)
+      numinvt[i] <- max(inft)
     }
 
   }
 
-  # for each node, time first invaded and number of nodes infected at that time
-  sampnode <- cbind(firstt, numt)
+  # for each node, time first invaded and number of nodes invaded at that time, and number of nodes not invaded at that time
+  numnotinvt <- dimL-numinvt
+  sampnodes <- cbind(firstt, numinvt, numnotinvt)
 
-  list(outmat=outmat, sampnode=sampnode)
+  list(outmat=outmat, sampnodes=sampnodes)
 }
 

@@ -1,8 +1,8 @@
 
 
-#' Evaluate nodes for value in invasion detection (based on a specified number of simulations, and including specified probabilities associated with each potential starting node)
+#' Evaluate nodes for value in invasion detection (based on a specified number of realizations, and including specified probabilities associated with each potential starting node)
 #'
-#' Uses weights that indicate how likely each node was to be the starting location for an invasion.  Uses output from multisimtest.  Finds the rate at which sampling failure (invasion of other nodes prior to detection at sampling node) is expected to occur for each potential sampling node.
+#' Uses weights that indicate how likely each node was to be the starting location (introduction point) for an invasion.  Uses output from multisimtest.  Finds the rate at which sampling success (other nodes free of invasion when invasion reaches sampling node) is expected to occur for each potential sampling node.
 #' @param msf.out output object from function multisimf
 #' @param adjmat adjacency matrix for evaluation
 #' @param wtvec vector of weights indicating the probability that each node would be the starting node for invasion
@@ -16,9 +16,8 @@
 #' startwt(msf.out=msf.outex, adjmat=sAmat, wtvec=wtvec.ex, nodenam=c("KS","NE","ND","SD"))
 #' startwt(msf.out=msf.outex, adjmat=sAmat, wtvec=c(1,100,10,1), nodenam=c("KS","NE","ND","SD"))
 
-# to do - GT
 # to do - improve examples
-#
+
 
 startwt <- function(msf.out, adjmat, wtvec, nodenam=NA) {
 
@@ -27,11 +26,11 @@ startwt <- function(msf.out, adjmat, wtvec, nodenam=NA) {
   matop <- msf.out$meanarr
   wtarr <- wtvec * matop
 
-  # find failure rate for each sampling node
-  sampfail <- colSums(wtarr)
-  tsampfail <- data.frame(1:dimL, sampfail, nodenam)
+  # find invasion free rate for each sampling node
+  sampfree <- colSums(wtarr)
+  tsampfree <- data.frame(1:dimL, sampfree, nodenam)
   
-  list(wtarr=wtarr, tsampfail=tsampfail)
+  list(wtarr=wtarr, tsampfree=tsampfree)
 
 }
 
