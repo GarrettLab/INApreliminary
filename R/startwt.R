@@ -18,7 +18,7 @@
 
 # to do - GT
 # to do - improve examples
-
+#
 
 startwt <- function(msf.out, adjmat, wtvec, nodenam=NA) {
 
