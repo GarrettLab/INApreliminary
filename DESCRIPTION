@@ -1,10 +1,10 @@
-Package: INApreliminary
-Title: Impact Network Analysis (preliminary version)
-Version: 0.0.0.9010
+Package: INA2
+Title: Impact Network Analysis
+Version: 0.0.1.0001
 Authors@R: person("K. A.", "Garrett", email = "karengarrett@ufl.edu", role = c("aut", "cre"))
-Description: TBA
+Description: What the package does (one paragraph).
 Depends: R (>= 3.3.2)
-License: TBA
+License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1

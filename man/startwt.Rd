@@ -2,7 +2,7 @@
 % Please edit documentation in R/startwt.R
 \name{startwt}
 \alias{startwt}
-\title{Evaluate nodes for value in invasion detection (based on a specified number of simulations, and including specified probabilities associated with each potential starting node)}
+\title{Evaluate nodes for value in invasion detection (based on a specified number of realizations, and including specified probabilities associated with each potential starting node)}
 \usage{
 startwt(msf.out, adjmat, wtvec, nodenam = NA)
 }
@@ -16,7 +16,7 @@ startwt(msf.out, adjmat, wtvec, nodenam = NA)
 \item{nodenam}{vector of node names}
 }
 \description{
-Uses weights that indicate how likely each node was to be the starting location for an invasion.  Uses output from multisimtest.  Finds the rate at which sampling failure (invasion of other nodes prior to detection at sampling node) is expected to occur for each potential sampling node.
+Uses weights that indicate how likely each node was to be the starting location (introduction point) for an invasion.  Uses output from multisimtest.  Finds the rate at which sampling success (other nodes free of invasion when invasion reaches sampling node) is expected to occur for each potential sampling node.
 }
 \examples{
 wtvec.ex <- c(1,10,100,1)

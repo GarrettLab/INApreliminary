@@ -2,25 +2,25 @@
 % Please edit documentation in R/onestart.R
 \name{onestart}
 \alias{onestart}
-\title{Evaluate individual nodes for their value in invasion detection (invasion starting from a single node) in one simulation}
+\title{Evaluate individual nodes for their value in invasion detection (invasion starting from a single node) in one realization}
 \usage{
-onestart(adjmat, wtvec, start.choice, stoch = T)
+onestart(adjmat, start.choice, stoch)
 }
 \arguments{
-\item{adjmat}{adjacency matrix for evaluation}
-
-\item{wtvec}{vector of weights corresponding to nodes associated with the adjacency matrix adjmat}
+\item{adjmat}{adjacency matrix to be evaluated; if stoch=T, the entries are the probabilities that a link exists in any given realization}
 
 \item{start.choice}{number of node where invasion starts}
 
-\item{stoch}{logical var indicating whether adjacency matrix entries are fixed or probabilities}
+\item{stoch}{logical var indicating whether adjacency matrix entries are fixed or probabilities (default is T)}
 }
 \description{
-For a given starting node (only one at this point), yields a vector of the number of nodes invaded for each sampling node by the time invasion reaches (is detected at) that sampling node, and the time step of first invasion at the sampling node - for one simulation.  Includes the option for differentially weighted probabilities of the existence of links.
+For a given introduction node (only one at this point), yields two outputs for one realization.  outmat has rows=time steps, columns = nodes, and entries = invasion status for each node at each time step (1 = invaded, 0 = not invaded).  sampnodes has rows = nodes, first column = time step at which invasion is detected (Inf if node is never reached), second column = the number of nodes invaded at the time of detection, third column = the number of nodes not invaded at the time of detection.
 }
 \examples{
-onestart(adjmat=Amat, wtvec= ___, start.choice=2) # assumes Amat exists - more complete example to be added
-onestart(adjmat=sAmat, wtvec= ___, start.choice=2,stoch=T) # assumes Amat exists - more complete example to be added
+Amat <- matrix(c(1,0,0,0,1,1,0,0,0,1,1,0,1,1,1,1),nrow=4,ncol=4)
+onestart(adjmat=Amat, start.choice=2, stoch=F) 
+sAmat <- Amat * 0.7 # each potential link has probability 0.7 of existing in one realization
+onestart(adjmat=sAmat, start.choice=2, stoch=T) 
 }
 \keyword{prioritization}
 \keyword{sampling}

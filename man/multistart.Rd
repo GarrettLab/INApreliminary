@@ -4,21 +4,21 @@
 \alias{multistart}
 \title{Evaluate nodes for value in invasion detection (invasion starting from each node in turn)}
 \usage{
-multistart(adjmat, wtvec, stoch = T)
+multistart(adjmat, stoch)
 }
 \arguments{
 \item{adjmat}{adjacency matrix for evaluation}
 
-\item{wtvec}{vector of weights corresponding to nodes associated with adjacency matrix adjmat2}
-
-\item{stoch}{logical var indicating whether adjacency matrix entries are fixed or probabilities}
+\item{stoch}{logical var indicating whether adjacency matrix entries are fixed (1 or 0) or probabilities}
 }
 \description{
-For an analysis of each potential starting node in turn, generates a table of number of nodes infected by time detected at each potential sampling node, with rows being starting node and columns being sampling node - for one simulation.  Each node can be weighted with a relative likelihood of spread to that node.
+Evaluate nodes for value in invasion detection (invasion starting from each node in turn) using function onestart for one realization.  The output is a matrix with rows = starting nodes (introduction nodes), columns = samping nodes, and entries = number of nodes not invaded by time detected at the sampling node having started at the introduction node.
 }
 \examples{
-multistart(adjmat=Amat,wtvec= ___)
-multistart(adjmat=sAmat,wtvec=____, stoch=T)
+Amat <- matrix(c(1,0,0,0,1,1,0,0,0,1,1,0,1,1,1,1),nrow=4,ncol=4)
+multistart(adjmat=Amat, stoch=F)
+sAmat <- Amat * 0.7 # each potential link has probability 0.7 of existing in one realization
+multistart(adjmat=sAmat, stoch=T)
 }
 \keyword{prioritization}
 \keyword{sampling}

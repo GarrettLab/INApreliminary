@@ -2,9 +2,9 @@
 % Please edit documentation in R/multisimtest.R
 \name{multisimtest}
 \alias{multisimtest}
-\title{Evaluate nodes for value in invasion detection (based on a specified number of simulations)}
+\title{Evaluate nodes for value in invasion detection (based on a specified number of realizations)}
 \usage{
-multisimtest(adjmat, wtvec, stoch = T, nsim = 1)
+multisimtest(adjmat, stoch, nrealz = 1)
 }
 \arguments{
 \item{adjmat}{adjacency matrix for evaluation}
@@ -14,11 +14,10 @@ multisimtest(adjmat, wtvec, stoch = T, nsim = 1)
 \item{nsim}{number of simulations to be analyzed}
 }
 \description{
-For an analysis of each potential starting node in turn, outputs a table of number of nodes infected by time detected at each potential sampling node, with rows being starting node and columns being sampling node - for a specified number of simulation
+Evaluate nodes for utility in invasion detection (based on a specified number of realizations) using the function multistart (which in turn uses the function onestart).  outarr saves the output from each realization from multistart, in a 3D array.  In meanarr, rows = starting nodes (introduction nodes), columns = sampling nodes, and entries = mean nodes free from invasion when invasion starting at the introduction node reaches the sampling node.  In vararr, for the same rows and columns, entries are the variance in the number of nodes free from invasion.  Note that there is no reason to use multisimtest if there is no stochastic component.
 }
 \examples{
-multisimtest(adjmat=Amat, wtvec=__, nsim=1)  # multiple sims not needed because not stochastic - BUT, yes, now should be stochastic
-multisimtest(adjmat=sAmat, wtvec=__, stoch=T, nsim=10)
+multisimtest(adjmat=sAmat, stoch=T, nsim=10)[
 }
 \keyword{prioritization}
 \keyword{sampling}
