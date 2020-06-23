@@ -1,12 +1,13 @@
 
 #' Evaluate individual nodes for their value in invasion detection (invasion starting from a single node) in one realization
 #'
-#' For a given introduction node (only one at this point), yields two outputs for one realization.  outmat has rows=time steps, columns = nodes, and entries = invasion status for each node at each time step (1 = invaded, 0 = not invaded).  sampnodes has rows = nodes, first column = time step at which invasion is detected (Inf if node is never reached), second column = the number of nodes invaded at the time of detection, third column = the number of nodes not invaded at the time of detection.
+#' For a given introduction node (only one at this point), yields two outputs for one realization.  outmat has rows=time steps, columns = nodes, and entries = invasion status for each node at each time step (1 = invaded, 0 = not invaded).  sampnodes has rows = nodes, first column = time step at which invasion is detected at a node (Inf if node is never reached), second column = the number of nodes invaded at the time of detection (the total number that are ever invaded if the node is never reached), third column = the number of nodes not invaded at the time of detection.
 #' @param adjmat adjacency matrix to be evaluated; if stoch=T, the entries are the probabilities that a link exists in any given realization
-#' @param start.choice number of node where invasion starts
+#' @param start.choice number (ID) of node where invasion starts
 #' @param stoch logical var indicating whether adjacency matrix entries are fixed or probabilities (default is T)
 #' @keywords prioritization sampling
 #' @export
+
 #' @examples
 #' Amat <- matrix(c(1,0,0,0,1,1,0,0,0,1,1,0,1,1,1,1),nrow=4,ncol=4)
 #' onestart(adjmat=Amat, start.choice=2, stoch=F) 
@@ -23,9 +24,7 @@ onestart <- function(adjmat, start.choice, stoch){
 
   # if stochastic, generate the adjacency matrix for this realization - assumes the input adjacency matrix is made up of probabilities
 
-  # (in future versions, consider options for temporal resolution of stochasticity - this version sets to one specific matrix throughout realization)
-
-  if(stoch){ 
+    if(stoch){ 
     adjmat <- (matrix(runif(dimL^2), ncol=dimL) < adjmat)
   }
 
@@ -47,7 +46,6 @@ onestart <- function(adjmat, start.choice, stoch){
 
   # find the num infected for each individual sampling node, 
      # assuming invaded node stays invaded
-	# consider whether to set diag
 
   # find the number of nodes infected at each time
   inft <- rowSums(outmat)

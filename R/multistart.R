@@ -1,6 +1,5 @@
 
 
-
 #' Evaluate nodes for value in invasion detection (invasion starting from each node in turn)
 #'
 #' Evaluate nodes for value in invasion detection (invasion starting from each node in turn) using function onestart for one realization.  The output is a matrix with rows = starting nodes (introduction nodes), columns = samping nodes, and entries = number of nodes not invaded by time detected at the sampling node having started at the introduction node.  
@@ -8,6 +7,7 @@
 #' @param stoch logical var indicating whether adjacency matrix entries are fixed (1 or 0) or probabilities
 #' @keywords prioritization sampling
 #' @export
+
 #' @examples
 #' Amat <- matrix(c(1,0,0,0,1,1,0,0,0,1,1,0,1,1,1,1),nrow=4,ncol=4)
 #' multistart(adjmat=Amat, stoch=F)
