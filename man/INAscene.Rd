@@ -21,132 +21,141 @@ INAscene(nreals, ntsteps, doplot = F, readorgengeo, readgeocoords,
   maneffthresh = NA, sampeffort = NA)
 }
 \arguments{
+\item{nreals}{number of realizations to be evaluated}
+
+\item{ntsteps}{number of time steps to be evaluated}
+
+\item{doplot}{if true, plots of resulting presence of information and bioentity are generated}
+
+\item{readorgengeo}{if 'read', read in geocoords - if 'gen', generate it in each realization (redundant wtih readgeocoords)}
+
+\item{readgeocoords}{if T, read in geocoords - otherwise, generate it in each realization}
+
+\item{geocoords}{matrix of x,y coordinates of nodes}
+
+\item{numnodes}{(genlocs:nodenum) the number of nodes, can be a vector of different numbers of nodes for scenario comparisons}
+
+\item{xrange}{(genlocs:extx) range of x coordinates, e.g., c(0,50)}
+
+\item{yrange}{(genlocs:exty) range of y coordinates, e.g., c(0,20)}
+
+\item{randgeo}{(genlocs:rand) if TRUE then locations are randomly generated (the only location generation option for the moment)}
+
 \item{readinitinfo}{info (setup2) if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated}
 
-\item{initinfo}{info (setup2) the vector of initial values read in if readinitinfo.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information}
+\item{initinfo}{info (setup2) the vector of initial values read in if readinitinfo == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information}
+
+\item{initinfo.norp}{info (initvals:numorpropi) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+
+\item{initinfo.n}{info (initvals:numiniti) the number of initial locations for presence}
+
+\item{initinfo.p}{info (initvals:propiniti) the proportion of initial locations for presence}
+
+\item{initinfo.dist}{info (initvals:loctypei) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
 
 \item{readinitbio}{bio (setup2) if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated}
 
 \item{initbio}{bio (setup2) the vector of initial values read in if readinitbio.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity}
 
-\item{nsims3}{number of simulations to be evaluated}
+\item{initbio.norp}{estab (initvals:numorprope/b) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
 
-\item{usethresh3}{if T, information is never present anywhere unless the management effect estimate exceeds the threshold}
+\item{initbio.n}{estab (initvals:numinite/b) the number of initial locations for presence}
 
-\item{nsteps3}{number of time steps to be evaluated}
+\item{initbio.p}{estab (initvals:propinite/b) the proportion of initial locations for presence}
 
-\item{readcomamn3}{if T, the communication adjacency matrix is read in rather than being generated from the outset}
+\item{initbio.dist}{estab (initvals:loctypee/b) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
 
-\item{readdispamn3}{if T, the dispersal adjacency matrix is read in rather than being generated from the outset}
+\item{readseam}{if T, the socioeconomic network adjacency matrix is read in rather than being generated from the outset}
 
-\item{xymatn3}{matrix of x,y coordinates of nodes}
+\item{seam}{socioeconnomic network adjacency matrix, read in if readseam=T}
 
-\item{readxymat3}{if T, read in xymatinn2 - otherwise, generate it in each realization}
+\item{seamdist}{com (genmovnet:distfcn) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
 
-\item{efthr3}{(estinfo) the threshold effect size for communicating about management}
+\item{seamrandp}{(genmovnet) probability of link existence in random network generated for the socioeconomic network}
 
-\item{efmn3}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
+\item{seampla}{com (genmovnet:placn) power law parameter a in ad^(-b)}
 
-\item{efsem3}{(estinfo) the standard deviation of the effect}
+\item{seamplb}{com (genmovnet:pllbcn) power law parameter b in ad^(-b)}
 
-\item{extx3}{(genlocs) range of x coordinates, e.g., c(0,50)}
+\item{seamlinktype}{com (genmovnet:lktypecn) link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
 
-\item{exty3}{(genlocs) range of y coordinates, e.g., c(0,20)}
+\item{seamthresh}{com (genmovnet:tlinkcn) threshold for whether link exists (probability in some cases)}
 
-\item{nodnum3}{(genlocs) the number of nodes, can be a vector of different numbers of nodes for scenario comparisons}
+\item{seamdiag1}{com (spreadstep:diag1cn) if T, diagonal of adj mat is given value 1}
 
-\item{rand3}{(genlocs) if TRUE then locations are randomly generated (the only option for the moment)}
+\item{seamformat}{com (spreadstep:mattypecn) 'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks}
 
-\item{loctypei3}{info (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
+\item{seammax1}{com (spreadstep:max1cn) if T, values in vect2 greater than 1 are replaced by 1}
 
-\item{numiniti3}{info (initvals) the number of initial locations for presence}
+\item{readbpam}{if T, the biophysical network adjacency matrix, describing dispersal likelihoods, is read in rather than being generated from the outset}
 
-\item{numorpropi3}{info (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+\item{bpam}{biophysical adjacency matrix, read in if readbpam=T}
 
-\item{propiniti3}{info (initvals) the proportion of initial locations for presence}
+\item{bpamdist}{disp (genmovnet:distfdn) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
 
-\item{loctypee3}{estab (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
+\item{bpamrandp}{(genmovnet) if bpamdist='random', the probability a link exists in the biophysical network adjacency matrix}
 
-\item{numinite3}{estab (initvals) the number of initial locations for presence}
+\item{bpampla}{disp (genmovnet:pladn) power law parameter a in ad^(-b)}
 
-\item{numorprope3}{estab (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+\item{bpamplb}{disp (genmovnet:plbdn) power law parameter b in ad^(-b)}
 
-\item{propinite3}{estab (initvals) the proportion of initial locations for presence}
+\item{bpamlinktype}{disp (genmovnet:lktypedn) link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
 
-\item{distfcn3}{com (genmovnet) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
+\item{bpamthresh}{disp (genmovnet:tlinkdn) threshold for whether link exists (probability in some cases)}
 
-\item{lktypecn3}{com (genmovnet) link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
+\item{bpamdiag1}{disp (spreadstep:diag1dn) if T, diagonal of adj mat is given value 1}
 
-\item{placn3}{com (genmovnet) power law parameter a in ad^(-b)}
+\item{bpamformat}{disp (spreadstep:mattypedn) 'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks}
 
-\item{plbcn3}{com (genmovnet) power law parameter b in ad^(-b)}
+\item{bpammax1}{disp (spreadstep:max1dn) if T, values in vect2 greater than 1 are replaced by 1}
 
-\item{tlinkcn3}{com (genmovnet) threshold for whether link exists (probability in some cases)}
+\item{readprobadoptvec}{if T, read in a vector of probabilities of adoption for each node in socioeconomic network - if F, generate this vector}
 
-\item{distfdn3}{disp (genmovnet) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
+\item{probadoptvec}{vector of probabilities of adoption for each node in socioeconomic network, read in if readprobadoptvec=T}
 
-\item{lktypedn3}{disp (genmovnet) link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
+\item{probadoptmean}{(makedec:adpmn) mean probability of adopting management if informed}
 
-\item{pladn3}{disp (genmovnet) power law parameter a in ad^(-b)}
+\item{probadoptsd}{(makedec:adpsdn) sd in truncated normal distribution of probability of adoption}
 
-\item{plbdn3}{disp (genmovnet) power law parameter b in ad^(-b)}
+\item{readprobestabvec}{if T, read in a vector of probabilities of establishment for each node in biophysical network - if F, generate this vector}
 
-\item{tlinkdn3}{disp (genmovnet) threshold for whether link exists (probability in some cases)}
+\item{probestabvec}{vector of probabilities of establishment for each node in biophysical network, read in if readprobestabvec=T}
 
-\item{diag1cn3}{com (spreadstep) if T, diagonal of adj mat is given value 1}
+\item{probestabmean}{(estab:estpmn) mean probability of establishment (new or CONTINUED) in absence of management}
 
-\item{mattypecn3}{com (spreadstep) 'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks}
+\item{probestabsd}{(estab:estpsdn) sd of probability of establishment in absence of management in truncated normal distribution}
 
-\item{max1cn3}{com (spreadstep) if T, values in vect2 greater than 1 are replaced by 1}
+\item{maneffmean}{(estinfo:efmn) the underlying mean change in establishment probability (as a proportion) resulting from management technology}
 
-\item{vect1cn3}{com (spreadstep) status of nodes before spread}
+\item{maneffsd}{(estinfo) the standard deviation of the management technology effect}
 
-\item{diag1dn3}{disp (spreadstep) if T, diagonal of adj mat is given value 1}
+\item{usethreshman}{if T, the threshold for management is used, so that information is never present anywhere unless the management effect estimate exceeds the threshold}
 
-\item{mattypedn3}{disp (spreadstep) 'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks}
+\item{maneffthresh}{(estinfo:efthr) the threshold effect size for communicating about management}
 
-\item{max1dn3}{disp (spreadstep) if T, values in vect2 greater than 1 are replaced by 1}
-
-\item{vect1dn3}{disp (spreadstep) status of nodes before spread}
-
-\item{adpmn3}{(makedec) mean probability of adopting management if informed}
-
-\item{adpsdn3}{(makedec) sd in truncated normal distribution of probability of adoption}
-
-\item{estpmn3}{(estab) mean probability of establishment (new or CONTINUED) in absence of management}
-
-\item{maneffn3}{(estab) management effect (proportional reduction in estabp) THIS SHOULD BE GENERATED RATHER THAN SUPPLIED AS INPUT - 2019 removed, should use efmn3, instead}
-
-\item{estpsdn3}{(estab) sd in truncated normal distribution}
-
-\item{plotmpn3}{if true plots of resulting presence of information and species are generated}
+\item{sampeffort}{(estinfo) the sampling effort, where increasing sampling effort results in a more precise estimate of the management effect size}
 }
 \description{
 This function implements and summarizes multiple simulations across a designated range of parameter values
 }
 \details{
-Updated 2020-06-19
+Updated 2020-06-21
 }
 \examples{
-x1 <- multdif()
-TO UPDATE x2 <- multdif(nsims3=2, nsteps3=2, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1),readxymat3=T)
-x3 <- multdif(nsims3=2, nsteps3=2, readxymat3=F) # generate everything
 library(truncnorm)
-baselinep1 <- multdif(nsims3=20, usethresh3=T, nsteps3=5, readxymat3=F, readcomamn3=F, readdispamn3=F, efmn3=c(0.7), efsem3=c(0.2), efsd3=c(0.2), efthr3=0.5, extx3=c(0,50), exty3=c(0,50), nodenum3=100, rand3=TRUE, loctypei3='random', numorpropi3='prop', propiniti3=0.05, loctypee3='upedge', numorprope3='prop', propinite3=0.05, distfcn3='powerlaw', lktypecn3='pr', placn3=c(1), plbcn3=c(0.5), tlinkcn3=0.1, distfdn3='powerlaw', lktypedn3='pr', pladn3=c(1), plbdn3=c(0.5), tlinkdn3=0.1, diag1cn3=T,  max1cn3=T, diag1dn3=T, max1dn3=T, adpmn3=c(0.5), adpsdn3=c(0.2), estpmn3=c(0.5), estpsdn3=c(0.2), plotmpn3=F)
-baselinep1$multout
-sens.adpm <- multdif(nsims3=20, usethresh3=T, nsteps3=5, readxymat3=F, readcomamn3=F, readdispamn3=F, efmn3=c(0.7), efsem3=c(0.2), efsd3=c(0.2), efthr3=0.5, extx3=c(0,50), exty3=c(0,50), nodenum3=100, rand3=TRUE, loctypei3='random', numorpropi3='prop', propiniti3=0.05, loctypee3='upedge', numorprope3='prop', propinite3=0.05, distfcn3='powerlaw', lktypecn3='pr', placn3=c(1), plbcn3=c(0.5), tlinkcn3=0.1, distfdn3='powerlaw', lktypedn3='pr', pladn3=c(1), plbdn3=c(0.5), tlinkdn3=0.1, diag1cn3=T,  max1cn3=T, diag1dn3=T, max1dn3=T, adpmn3=seq(0,1,0.1), adpsdn3=c(0.2), estpmn3=c(0.5), estpsdn3=c(0.2), plotmpn3=F)
-jt <- sens.adpm$multout
-plot(jt$adpmn3, jt$mestab, xlab='Mean probability of adopting management if informed', ylab='Invasive establishment rate (phrasing to be improved)')
-plot(jt$adpmn3, jt$mdec, xlab='Mean probability of adopting management if informed', ylab='Tech adoption rate (phrasing to be improved)')
-sens.plbc <- multdif(nsims3=20, usethresh3=T, nsteps3=5, readxymat3=F, readcomamn3=F, readdispamn3=F, efmn3=c(0.7), efsem3=c(0.2), efsd3=c(0.2), efthr3=0.5, extx3=c(0,50), exty3=c(0,50), nodenum3=100, rand3=TRUE, loctypei3='random', numorpropi3='prop', propiniti3=0.05, loctypee3='upedge', numorprope3='prop', propinite3=0.05, distfcn3='powerlaw', lktypecn3='pr', placn3=c(1), plbcn3=seq(0,2,0.1), tlinkcn3=0.1, distfdn3='powerlaw', lktypedn3='pr', pladn3=c(1), plbdn3=c(0.5), tlinkdn3=0.1, diag1cn3=T,  max1cn3=T, diag1dn3=T, max1dn3=T, adpmn3=c(0.5), adpsdn3=c(0.2), estpmn3=c(0.5), estpsdn3=c(0.2), plotmpn3=F)
-jt2 <- sens.plbc$multout
-plot(jt2$plbcn3, jt2$mestab, xlab='Power law parameter b in ad^(-b)', ylab='Invasive establishment rate (phrasing to be improved)')
-plot(jt2$plbcn3, jt2$mdec, xlab='Power law parameter b in ad^(-b)', ylab='Tech adoption rate (phrasing to be improved)')
-plot(jt2$plbcn3, jt2$mcom, xlab='Power law parameter b in ad^(-b)', ylab='Rate of receipt of communication (phrasing to be improved)')
-# this is an intermediate revision stage June 13 2020
-INAscene(nsims3=3, usethresh3=F, nsteps3=5, xymatinn3, readxymat3=F, readorgenxy3, comamn3=1, dispamn3=1, readcomamn3=F, readdispamn3=F, efmn3=c(0.1,0.8), efsd3=c(0.1), efthr3=0.5, sampeffort3, extx3=c(0,50), exty3=c(0,50), nodenum3=100, rand3=TRUE, readinitinfo, initinfo, loctypei3='random', numiniti3=5, numorpropi3='num', propiniti3=0.05, readinitbio, initbio, loctypee3='upedge', numinite3=5, numorprope3='num', propinite3=0.05, distfcn3='powerlaw', lktypecn3='pr', placn3=c(1,2), plbcn3=c(1,2), randpcn3, tlinkcn3=0.1, distfdn3='powerlaw', lktypedn3='pr', pladn3=c(1,2), plbdn3=c(1,2), randpdn3, tlinkdn3=0.1, diag1cn3=T, mattypecn3='fromto', max1cn3=T, diag1dn3=T, mattypedn3='fromto', max1dn3=T, adpmn3=c(0.1,0.9), adpsdn3=c(0.1), padopt3, readpadopt3, estpmn3=c(0.1,0.9), estpsdn3=c(0.1), pestabn3, readpestabn3, plotmpn3=F)
-# now final-ish June 19 2020
-j25 <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='random', seamrandp=0.05, seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
+j25.readgeocoords <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='read', readgeocoords=T, geocoords=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), numnodes=NA, xrange=NA, yrange=NA, randgeo=F, readinitinfo=T, initinfo=c(1,1,1,0,0,0), initinfo.norp=NA, initinfo.n=NA, initinfo.p=NA, initinfo.dist=NA, readinitbio=T, initbio=c(0,0,0,1,1,1), initbio.norp=NA, initbio.n=NA, initbio.p=NA,  initbio.dist=NA, readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
+j25.baseline <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.5, maneffsd=0.2, usethreshman=T, maneffthresh=0.5, sampeffort=2) 
+j25.baseline$multout
+sens.probadoptmean <- INAscene(nreals=15, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=seq(0,1,0.1), probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.9, maneffsd=0.2, usethreshman=T, maneffthresh=0.3, sampeffort=2) 
+jt <- sens.probadoptmean$multout
+plot(jt$probadoptmean, jt$mestab, xlab='Mean probability of adopting technology if informed', ylab='Proportion nodes with bioentity')
+plot(jt$probadoptmean, jt$mdec, xlab='Mean probability of adopting technology if informed', ylab='Proportion nodes with technology adoption')
+sens.seamplb <- INAscene(nreals=15, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=seq(0,2,0.1), seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.7, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.9, maneffsd=0.2, usethreshman=T, maneffthresh=0.3, sampeffort=2) 
+jt2 <- sens.seamplb$multout
+plot(jt2$seamplb, jt2$mestab, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with bioentity')
+plot(jt2$seamplb, jt2$mdec, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with technology adoption')
+plot(jt2$seamplb, jt2$mcom, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with information about technology')
+j25.seamrandp <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
 }
 \keyword{experiments}
 \keyword{simulation}
