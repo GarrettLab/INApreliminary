@@ -1,4 +1,4 @@
-Package: INA2
+Package: INApreliminary
 Title: Impact Network Analysis
 Version: 0.0.1.0001
 Authors@R: person("K. A.", "Garrett", email = "karengarrett@ufl.edu", role = c("aut", "cre"))
