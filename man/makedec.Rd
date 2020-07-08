@@ -25,7 +25,7 @@ makedec(comvec, xymat, adpm, adpsd, readpadopt, padopt, plotmp = F)
 This function generates decisions at each node about management
 }
 \details{
-Updated 2020-06-03
+Updated 2020-07-07
 }
 \examples{
 x5 <- makedec(comvec=c(1,1,1,0,0,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readpadopt=F, adpm=0.1, adpsd=0.1, plotmp=T)

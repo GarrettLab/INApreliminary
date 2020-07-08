@@ -3,7 +3,7 @@
 #'
 #' This function determines whether a bioentity establishes or not at each node.  It is similar in some ways to the function \code{makedec}, which determines whether management is adopted.
 #'
-#' Updated 2020-06-05
+#' Updated 2020-07-07
 
 #' @param decvec vector of 1=management, 0=no management
 #' @param dispvec vector of 1=sp has dispersed to node, 0=sp has not dispersed to node
@@ -17,6 +17,7 @@
 #' @param xymat matrix of x,y coordinates of nodes (used if \code{plotmp} = T)
 #' @keywords establishment
 #' @export
+#' @import truncnorm
 
 #' @examples
 #' x6 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, efmn=0.1, efsd=0.1, plotmp=T)
@@ -31,11 +32,11 @@ estab <- function(decvec, dispvec, estpm, estpsd, efmn, efsd, plotmp=F, xymat, r
 
   # probability of establishment in absence of management
   if(!readpestab){
-    pestab <- rtruncnorm(n=nodlen, a=0, b=1, mean=estpm, sd=estpsd)
+    pestab <- truncnorm::rtruncnorm(n=nodlen, a=0, b=1, mean=estpm, sd=estpsd)
   }
 
   # how great would the management effect be if used
-  obsman <- rtruncnorm(n=nodlen, a=0, b=1, mean=efmn, sd=efsd)
+  obsman <- truncnorm::rtruncnorm(n=nodlen, a=0, b=1, mean=efmn, sd=efsd)
 
   # probabiliy of estab adjusted for whether management used
   pestab[decvec==1] <- (1-obsman)[decvec==1] * pestab[decvec==1]

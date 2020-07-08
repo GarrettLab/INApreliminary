@@ -4,8 +4,16 @@
 \alias{layerplot}
 \title{Function for plotting multilayer networks}
 \usage{
-layerplot(upmat, lowmat, upcoords, lowcoords, yflat2, xover2, htdif,
-  lwdhere = 1)
+layerplot(
+  upmat,
+  lowmat,
+  upcoords,
+  lowcoords,
+  yflat2,
+  xover2,
+  htdif,
+  lwdhere = 1
+)
 }
 \arguments{
 \item{upmat}{adjacency matrix for upper network}

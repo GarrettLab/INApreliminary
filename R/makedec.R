@@ -3,7 +3,7 @@
 #'
 #' This function generates decisions at each node about management
 #'
-#' Updated 2020-06-03
+#' Updated 2020-07-07
 
 #' @param adpm mean probability of adopting management if informed
 #' @param adpsd sd for drawing probability of adoption, in truncated normal distribution
@@ -14,6 +14,7 @@
 #' @param xymat matrix of x,y coordinates for the nodes, for mapping if \code{plotmp} = T (and for determining the number of nodes in current version)
 #' @keywords decisions
 #' @export
+#' @import truncnorm
 
 #' @examples
 #' x5 <- makedec(comvec=c(1,1,1,0,0,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readpadopt=F, adpm=0.1, adpsd=0.1, plotmp=T)
@@ -26,7 +27,7 @@ makedec <- function(comvec, xymat, adpm, adpsd, readpadopt, padopt, plotmp=F){
   nodlen <- dim(xymat)[1] # number of nodes
  
   if(!readpadopt){
-    padopt <- rtruncnorm(n=nodlen, a=0, b=1, mean = adpm, sd=adpsd)
+    padopt <- truncnorm::rtruncnorm(n=nodlen, a=0, b=1, mean = adpm, sd=adpsd)
   }
   
   stochadopt <- runif(n=nodlen, min=0, max=1)

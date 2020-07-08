@@ -4,8 +4,18 @@
 \alias{estab}
 \title{Bioentity establishment or not at each node}
 \usage{
-estab(decvec, dispvec, estpm, estpsd, efmn, efsd, plotmp = F, xymat,
-  readpestab, pestab)
+estab(
+  decvec,
+  dispvec,
+  estpm,
+  estpsd,
+  efmn,
+  efsd,
+  plotmp = F,
+  xymat,
+  readpestab,
+  pestab
+)
 }
 \arguments{
 \item{decvec}{vector of 1=management, 0=no management}
@@ -32,7 +42,7 @@ estab(decvec, dispvec, estpm, estpsd, efmn, efsd, plotmp = F, xymat,
 This function determines whether a bioentity establishes or not at each node.  It is similar in some ways to the function \code{makedec}, which determines whether management is adopted.
 }
 \details{
-Updated 2020-06-05
+Updated 2020-07-07
 }
 \examples{
 x6 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, efmn=0.1, efsd=0.1, plotmp=T)

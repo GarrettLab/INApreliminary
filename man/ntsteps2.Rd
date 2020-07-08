@@ -4,11 +4,46 @@
 \alias{ntsteps2}
 \title{Changes management info status and bioentity establishment status at each node across multiple time steps}
 \usage{
-ntsteps2(nsteps, xymatinn, infon, vect1cn, vect1dn, comamn, dispamn,
-  readcomamn, readdispamn, distfcn, lktypecn, placn, plbcn, randpcn,
-  tlinkcn, distfdn, lktypedn, pladn, plbdn, randpdn, tlinkdn, diag1cn,
-  mattypecn, max1cn, diag1dn, mattypedn, max1dn, adpmn, adpsdn, estpmn,
-  estpsdn, efmnn, efsdn, pestabn, readpestabn, plotmpn = F)
+ntsteps2(
+  nsteps,
+  xymatinn,
+  infon,
+  vect1cn,
+  vect1dn,
+  comamn,
+  dispamn,
+  readcomamn,
+  readdispamn,
+  distfcn,
+  lktypecn,
+  placn,
+  plbcn,
+  randpcn,
+  tlinkcn,
+  distfdn,
+  lktypedn,
+  pladn,
+  plbdn,
+  randpdn,
+  tlinkdn,
+  diag1cn,
+  mattypecn,
+  max1cn,
+  diag1dn,
+  mattypedn,
+  max1dn,
+  readpadoptn,
+  padoptn,
+  adpmn,
+  adpsdn,
+  estpmn,
+  estpsdn,
+  efmnn,
+  efsdn,
+  pestabn,
+  readpestabn,
+  plotmpn = F
+)
 }
 \arguments{
 \item{nsteps}{number of time steps to be evaluated}
@@ -65,6 +100,10 @@ ntsteps2(nsteps, xymatinn, infon, vect1cn, vect1dn, comamn, dispamn,
 
 \item{max1dn}{disp (spreadstep) if T, values in vect2 greater than 1 are replaced by 1}
 
+\item{readpadoptn}{if T, then a VECTOR of padopt values is read in; if F, \code{adpm} and \code{adpsd} are used to generate the vector}
+
+\item{padoptn}{vector of probabilities of adoption if informed for nodes in the network (\code{readpadopt} determines whether \code{padopt} is read in to \code{makedec} or generated within \code{makedec} based on \code{adpm} and \code{adpsd})}
+
 \item{adpmn}{(makedec) mean probability of adopting management if informed}
 
 \item{adpsdn}{(makedec) sd in truncated normal distribution of probability of adoption}
@@ -84,24 +123,20 @@ ntsteps2(nsteps, xymatinn, infon, vect1cn, vect1dn, comamn, dispamn,
 \item{plotmpn}{if T, plots of resulting presence of information and species are generated}
 
 \item{comvec}{vector of 1=info is present, 0=info is not present}
-
-\item{padopt}{vector of probabilities of adoption if informed for nodes in the network (\code{readpadopt} determines whether \code{padopt} is read in to \code{makedec} or generated within \code{makedec} based on \code{adpm} and \code{adpsd})}
-
-\item{readpadopt}{if T, then a VECTOR of padopt values is read in; if F, \code{adpm} and \code{adpsd} are used to generate the vector}
 }
 \description{
 This function gives the info status and establishment status at each node after multiple time steps. Its use follows use of the function \code{setup2}, or another source of node locations and initial conditions.  (Note that communication and dispersal status are given for the beginning of the time step (rather than for the end), so the corresponding output for these has length equal to the number of time steps plus 1.  In contrast, adoption and establishment output is of length equal to the number of time steps.) It uses the following functions, as needed: genmovnet, spreadstep, makedec, and estab. It draws on output from function setup2 in terms of whether communication occurs (estinfo), generated geographic locations of nodes as needed (genloc), and the initial locations for management information and the bioentity.
 }
 \details{
-Updated 2020-06-03
+Updated 2020-06-27
 }
 \examples{
-x2 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, plotmpn=T)
-x2z <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=0.5, plbcn=2, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=0.5, plbdn=2, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1, max1dn=T, readpestabn=F, plotmpn=T)
-x3 <- ntsteps2(nsteps=2, infon=T, xymatinn=matrix(runif(n=100)*100,byrow=T,ncol=2), vect1cn=c(rep(1,10),rep(0,40)), vect1dn=sample(c(rep(1,10),rep(0,40))), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, plotmpn=T)
-x9 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1),comamn=matrix(c(0,1,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), dispamn=matrix(c(0,0,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), readcomamn=T, readdispamn=T, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, plotmpn=T)
-x12 <- ntsteps2(nsteps=3, infon=F, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, plotmpn=T)
-x13 <- ntsteps2(nsteps=5, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, plotmpn=T)
+x2 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
+x2z <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=0.5, plbcn=2, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=0.5, plbdn=2, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1, max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
+x3 <- ntsteps2(nsteps=2, infon=T, xymatinn=matrix(runif(n=100)*100,byrow=T,ncol=2), vect1cn=c(rep(1,10),rep(0,40)), vect1dn=sample(c(rep(1,10),rep(0,40))), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
+x9 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1),comamn=matrix(c(0,1,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), dispamn=matrix(c(0,0,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), readcomamn=T, readdispamn=T, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
+x12 <- ntsteps2(nsteps=3, infon=F, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
+x13 <- ntsteps2(nsteps=5, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
 }
 \keyword{experiments}
 \keyword{simulation}

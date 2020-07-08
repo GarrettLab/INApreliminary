@@ -4,21 +4,64 @@
 \alias{INAscene}
 \title{Evaluates scenarios in an impact network analysis (INA)}
 \usage{
-INAscene(nreals, ntsteps, doplot = F, readorgengeo, readgeocoords,
-  geocoords = NA, numnodes = NA, xrange = NA, yrange = NA,
-  randgeo = NA, readinitinfo, initinfo = NA, initinfo.norp = NA,
-  initinfo.n = NA, initinfo.p = NA, initinfo.dist = NA, readinitbio,
-  initbio = NA, initbio.norp = NA, initbio.n = NA, initbio.p = NA,
-  initbio.dist = NA, readseam, seam = NA, seamdist = NA,
-  seamrandp = NA, seampla = NA, seamplb = NA, seamlinktype = NA,
-  seamthresh = NA, seamdiag1 = NA, seamformat = NA, seammax1 = NA,
-  readbpam, bpam = NA, bpamdist = NA, bpamrandp = NA, bpampla = NA,
-  bpamplb = NA, bpamlinktype = NA, bpamthresh = NA, bpamdiag1 = NA,
-  bpamformat = NA, bpammax1 = NA, readprobadoptvec,
-  probadoptvec = NA, probadoptmean = NA, probadoptsd = NA,
-  readprobestabvec, probestabvec = NA, probestabmean = NA,
-  probestabsd = NA, maneffmean = NA, maneffsd = NA, usethreshman,
-  maneffthresh = NA, sampeffort = NA)
+INAscene(
+  nreals,
+  ntsteps,
+  doplot = F,
+  readgeocoords,
+  geocoords = NA,
+  numnodes = NA,
+  xrange = NA,
+  yrange = NA,
+  randgeo = NA,
+  readinitinfo,
+  initinfo = NA,
+  initinfo.norp = NA,
+  initinfo.n = NA,
+  initinfo.p = NA,
+  initinfo.dist = NA,
+  readinitbio,
+  initbio = NA,
+  initbio.norp = NA,
+  initbio.n = NA,
+  initbio.p = NA,
+  initbio.dist = NA,
+  readseam,
+  seam = NA,
+  seamdist = NA,
+  seamrandp = NA,
+  seampla = NA,
+  seamplb = NA,
+  seamlinktype = NA,
+  seamthresh = NA,
+  seamdiag1 = NA,
+  seamformat = NA,
+  seammax1 = NA,
+  readbpam,
+  bpam = NA,
+  bpamdist = NA,
+  bpamrandp = NA,
+  bpampla = NA,
+  bpamplb = NA,
+  bpamlinktype = NA,
+  bpamthresh = NA,
+  bpamdiag1 = NA,
+  bpamformat = NA,
+  bpammax1 = NA,
+  readprobadoptvec,
+  probadoptvec = NA,
+  probadoptmean = NA,
+  probadoptsd = NA,
+  readprobestabvec,
+  probestabvec = NA,
+  probestabmean = NA,
+  probestabsd = NA,
+  maneffmean = NA,
+  maneffsd = NA,
+  usethreshman,
+  maneffthresh = NA,
+  sampeffort = NA
+)
 }
 \arguments{
 \item{nreals}{number of realizations to be evaluated}
@@ -26,8 +69,6 @@ INAscene(nreals, ntsteps, doplot = F, readorgengeo, readgeocoords,
 \item{ntsteps}{number of time steps to be evaluated}
 
 \item{doplot}{if true, plots of resulting presence of information and bioentity are generated}
-
-\item{readorgengeo}{if 'read', read in geocoords - if 'gen', generate it in each realization (redundant wtih readgeocoords)}
 
 \item{readgeocoords}{if T, read in geocoords - otherwise, generate it in each realization}
 
@@ -139,23 +180,23 @@ INAscene(nreals, ntsteps, doplot = F, readorgengeo, readgeocoords,
 This function implements and summarizes multiple simulations across a designated range of parameter values
 }
 \details{
-Updated 2020-06-21
+Updated 2020-07-07
 }
 \examples{
 library(truncnorm)
-j25.readgeocoords <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='read', readgeocoords=T, geocoords=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), numnodes=NA, xrange=NA, yrange=NA, randgeo=F, readinitinfo=T, initinfo=c(1,1,1,0,0,0), initinfo.norp=NA, initinfo.n=NA, initinfo.p=NA, initinfo.dist=NA, readinitbio=T, initbio=c(0,0,0,1,1,1), initbio.norp=NA, initbio.n=NA, initbio.p=NA,  initbio.dist=NA, readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
-j25.baseline <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.5, maneffsd=0.2, usethreshman=T, maneffthresh=0.5, sampeffort=2) 
+j25.readgeocoords <- INAscene(nreals=3, ntsteps=3, doplot=F, readgeocoords=T, geocoords=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), numnodes=NA, xrange=NA, yrange=NA, randgeo=F, readinitinfo=T, initinfo=c(1,1,1,0,0,0), initinfo.norp=NA, initinfo.n=NA, initinfo.p=NA, initinfo.dist=NA, readinitbio=T, initbio=c(0,0,0,1,1,1), initbio.norp=NA, initbio.n=NA, initbio.p=NA,  initbio.dist=NA, readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
+j25.baseline <- INAscene(nreals=3, ntsteps=3, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.5, maneffsd=0.2, usethreshman=T, maneffthresh=0.5, sampeffort=2) 
 j25.baseline$multout
-sens.probadoptmean <- INAscene(nreals=15, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=seq(0,1,0.1), probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.9, maneffsd=0.2, usethreshman=T, maneffthresh=0.3, sampeffort=2) 
+sens.probadoptmean <- INAscene(nreals=15, ntsteps=3, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=seq(0,1,0.1), probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.9, maneffsd=0.2, usethreshman=T, maneffthresh=0.3, sampeffort=2) 
 jt <- sens.probadoptmean$multout
 plot(jt$probadoptmean, jt$mestab, xlab='Mean probability of adopting technology if informed', ylab='Proportion nodes with bioentity')
 plot(jt$probadoptmean, jt$mdec, xlab='Mean probability of adopting technology if informed', ylab='Proportion nodes with technology adoption')
-sens.seamplb <- INAscene(nreals=15, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=seq(0,2,0.1), seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.7, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.9, maneffsd=0.2, usethreshman=T, maneffthresh=0.3, sampeffort=2) 
+sens.seamplb <- INAscene(nreals=15, ntsteps=3, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=seq(0,2,0.1), seamlinktype='pa', seamthresh=0.1, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, bpamlinktype='pa', bpamthresh=0.5, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.7, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffmean=0.9, maneffsd=0.2, usethreshman=T, maneffthresh=0.3, sampeffort=2) 
 jt2 <- sens.seamplb$multout
 plot(jt2$seamplb, jt2$mestab, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with bioentity')
 plot(jt2$seamplb, jt2$mdec, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with technology adoption')
 plot(jt2$seamplb, jt2$mcom, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with information about technology')
-j25.seamrandp <- INAscene(nreals=3, ntsteps=3, doplot=F, readorgengeo='gen', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
+j25.seamrandp <- INAscene(nreals=3, ntsteps=3, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, seamlinktype='pa', seamthresh=NA, seamdiag1=T, seamformat='fromto', seammax1=T, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, bpamlinktype='pa', bpamthresh=NA, bpamdiag1=T, bpamformat='fromto', bpammax1=T, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
 }
 \keyword{experiments}
 \keyword{simulation}

@@ -3,7 +3,7 @@
 #'
 #' This function runs and summarizes multiple INA simulations with the same parameter values.  (It uses functions estinfo, genlocs, initvals, setup2, genmovnet, spreadstep, makedec, estab, and ntsteps2.)
 #'
-#' Updated 2020-06-11
+#' Updated 2020-07-07
 
 #' @param nreals number of realizations to be evaluated
 #' @param usethresh if T, information is never present anywhere unless the management effect estimate exceeds the threshold
@@ -18,8 +18,6 @@
 #' @param efsd22 (estinfo) the standard deviation of the effect
 #' @param efthr22 (estinfo) the threshold effect size for communicating about management (if efthr22 = 0 there is no threshold so communication can always occur)
 #' @param sampeffort22 (estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect
-
-#' @param readorgenxy22 read in the xy coordinates for locations (readorgenxy22 = 'read') or generate the xy coordinates by calling genlocs (readorgenxy22 = 'gen')
 
 #' @param readxymat2 if T, read in xymatinn2 - otherwise, generate it in each realization (related readxymat2=T and readorgenxy='read')
 #' @param xymatinn2 matrix of x,y coordinates of nodes, read in if readxymat2=T
@@ -90,17 +88,17 @@
 #' @examples
 
 
-#' x5 <- multsame2(nreals=10, nsteps2=3, usethresh=F, readxymat2=T, readorgenxy22='read', xymatinn2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=NA, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=NA, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=0.1, padopt2=NA, readpadopt2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
+#' x5 <- multsame2(nreals=10, nsteps2=3, usethresh=F, readxymat2=T, xymatinn2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=NA, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=NA, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=0.1, padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
 
-#' x3 <- multsame2(nreals=2,nsteps=3, usethresh=F, readxymat2=T, readorgenxy22='read', xymatinn2=matrix(runif(n=100)*100,byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=0.05, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=0.05, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=c(0,1), padopt2=NA, readpadopt2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
-
-
-
-multsame2 <- function(nreals, usethresh, nsteps2, xymatinn2, readxymat2, readorgenxy22, comamn2, dispamn2, readcomamn2, readdispamn2, efmn22, efsd22, efthr22, sampeffort22, extx22, exty22, nodenum22, rand22, readinitinfo.s2, initinfo.s2, loctypei2, numiniti2, numorpropi2, propiniti2, readinitbio.s2, initbio.s2, loctypeb2, numinitb2, numorpropb2, propinitb2, distfcn2, lktypecn2, placn2, plbcn2, randpcn2, tlinkcn2, distfdn2, lktypedn2, pladn2, plbdn2, randpdn2, tlinkdn2, diag1cn2, mattypecn2, max1cn2, diag1dn2, mattypedn2, max1dn2, adpmn2, adpsdn2, padopt2, readpadopt2, estpmn2, estpsdn2, pestabn2, readpestabn2, plotmpn2=F){
+#' x3 <- multsame2(nreals=2,nsteps=3, usethresh=F, readxymat2=T, xymatinn2=matrix(runif(n=100)*100,byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=0.05, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=0.05, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=c(0,1), padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
 
 
 
-  if(readxymat2){nodenum22 <- dim(xymatinn2)[1]}
+multsame2 <- function(nreals, usethresh, nsteps2, xymatinn2, readxymat2, comamn2, dispamn2, readcomamn2, readdispamn2, efmn22, efsd22, efthr22, sampeffort22, extx22, exty22, nodenum22, rand22, readinitinfo.s2, initinfo.s2, loctypei2, numiniti2, numorpropi2, propiniti2, readinitbio.s2, initbio.s2, loctypeb2, numinitb2, numorpropb2, propinitb2, distfcn2, lktypecn2, placn2, plbcn2, randpcn2, tlinkcn2, distfdn2, lktypedn2, pladn2, plbdn2, randpdn2, tlinkdn2, diag1cn2, mattypecn2, max1cn2, diag1dn2, mattypedn2, max1dn2, adpmn2, adpsdn2, padoptn2, readpadoptn2, estpmn2, estpsdn2, pestabn2, readpestabn2, plotmpn2=F){
+
+
+
+  if(readxymat2){nodenum22 <- nrow(xymatinn2)}
 
   # prepare an output object with output from ntsteps2 
   #   for each realization
@@ -120,11 +118,11 @@ multsame2 <- function(nreals, usethresh, nsteps2, xymatinn2, readxymat2, readorg
   for(j in 1:nreals) {
 
 
-    tempo <- setup2(efmn2=efmn22, efsd2=efsd22, efthr2=efthr22, sampeffort2=sampeffort22, usethresh2=usethresh, readorgenxy=readorgenxy22, xymat2=xymatinn2, extx2=extx22, exty2=exty22, nodnum2=nodenum22, rand2=rand22, readinitinfo.s=readinitinfo.s2, initinfo.s=initinfo.s2, loctypei=loctypei2, numiniti=numiniti2, numorpropi=numorpropi2, propiniti=propiniti2, readinitbio.s=readinitbio.s2, initbio.s=initbio.s2, loctypeb=loctypeb2, numinitb=numinitb2, numorpropb=numorpropb2, propinitb=propinitb2, plotmp=plotmpn2)
+    tempo <- setup2(efmn2=efmn22, efsd2=efsd22, efthr2=efthr22, sampeffort2=sampeffort22, usethresh2=usethresh, readxymatj=readxymat2, xymat2=xymatinn2, extx2=extx22, exty2=exty22, nodnum2=nodenum22, rand2=rand22, readinitinfo.s=readinitinfo.s2, initinfo.s=initinfo.s2, loctypei=loctypei2, numiniti=numiniti2, numorpropi=numorpropi2, propiniti=propiniti2, readinitbio.s=readinitbio.s2, initbio.s=initbio.s2, loctypeb=loctypeb2, numinitb=numinitb2, numorpropb=numorpropb2, propinitb=propinitb2, plotmp=plotmpn2)
 
 # note that the following draws on tempo
 
-    temp2 <- ntsteps2(nsteps=nsteps2, infon=tempo$com.yes, xymatinn=tempo$xymat2, vect1cn=tempo$infovec, vect1dn=tempo$estabvec, comamn=comamn2, dispamn=dispamn2, readcomamn=readcomamn2, readdispamn=readdispamn2, distfcn=distfcn2, lktypecn=lktypecn2, placn=placn2, plbcn=plbcn2, randpcn=randpcn2, tlinkcn=tlinkcn2, distfdn=distfdn2, lktypedn=lktypedn2, pladn=pladn2, plbdn=plbdn2, randpdn=randpdn2, tlinkdn=tlinkdn2, diag1cn=diag1cn2, mattypecn=mattypecn2, max1cn=max1cn2, diag1dn=diag1dn2, mattypedn=mattypedn2, max1dn=max1dn2, adpmn=adpmn2, adpsdn=adpsdn2, estpmn=estpmn2, estpsdn=estpsdn2, efmnn=efmn22, efsdn=efsd22, pestabn=pestabn2, readpestabn=readpestabn2, plotmpn=plotmpn2)
+    temp2 <- ntsteps2(nsteps=nsteps2, infon=tempo$com.yes, xymatinn=tempo$xymat2, vect1cn=tempo$infovec, vect1dn=tempo$estabvec, comamn=comamn2, dispamn=dispamn2, readcomamn=readcomamn2, readdispamn=readdispamn2, distfcn=distfcn2, lktypecn=lktypecn2, placn=placn2, plbcn=plbcn2, randpcn=randpcn2, tlinkcn=tlinkcn2, distfdn=distfdn2, lktypedn=lktypedn2, pladn=pladn2, plbdn=plbdn2, randpdn=randpdn2, tlinkdn=tlinkdn2, diag1cn=diag1cn2, mattypecn=mattypecn2, max1cn=max1cn2, diag1dn=diag1dn2, mattypedn=mattypedn2, max1dn=max1dn2, readpadoptn=readpadoptn2, padoptn=padoptn2, adpmn=adpmn2, adpsdn=adpsdn2, estpmn=estpmn2, estpsdn=estpsdn2, efmnn=efmn22, efsdn=efsd22, pestabn=pestabn2, readpestabn=readpestabn2, plotmpn=plotmpn2)
 
     # save the output from setup2 and ntsteps2
     multout[[j]] <- temp2

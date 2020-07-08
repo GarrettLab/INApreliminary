@@ -4,10 +4,32 @@
 \alias{setup2}
 \title{Set up starting conditions for INA scenario analysis}
 \usage{
-setup2(efmn2, efsd2, efthr2, sampeffort2, usethresh2, readorgenxy, xymat2,
-  extx2, exty2, nodnum2, rand2, readinitinfo.s, initinfo.s, loctypei,
-  numiniti, numorpropi, propiniti, readinitbio.s, initbio.s, loctypeb,
-  numinitb, numorpropb, propinitb, plotmp = F)
+setup2(
+  efmn2,
+  efsd2,
+  efthr2,
+  sampeffort2,
+  usethresh2,
+  readxymatj,
+  xymat2,
+  extx2,
+  exty2,
+  nodnum2,
+  rand2,
+  readinitinfo.s,
+  initinfo.s,
+  loctypei,
+  numiniti,
+  numorpropi,
+  propiniti,
+  readinitbio.s,
+  initbio.s,
+  loctypeb,
+  numinitb,
+  numorpropb,
+  propinitb,
+  plotmp = F
+)
 }
 \arguments{
 \item{efmn2}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
@@ -18,7 +40,7 @@ setup2(efmn2, efsd2, efthr2, sampeffort2, usethresh2, readorgenxy, xymat2,
 
 \item{sampeffort2}{(estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect}
 
-\item{readorgenxy}{read in the xy coordinates for locations (readorgenxy = 'read') or generate the xy coordinates by calling genlocs (readorgenxy = 'gen')}
+\item{readxymatj}{read in the xy coordinates for locations (readxymatj = T) or generate the xy coordinates by calling genlocs (readxymatj = F)}
 
 \item{xymat2}{coordinates for node geographic locations, ncol= 2 (x,y) and nrow=number of nodes (to be read in if readorgenxy = 'read')}
 
@@ -60,12 +82,12 @@ setup2(efmn2, efsd2, efthr2, sampeffort2, usethresh2, readorgenxy, xymat2,
 This function sets up all starting conditions, including the estimated effect size, the x,y coordinates of the nodes, the initial information locations, and the initial species locations. It runs functions \code{estinfo}, \code{genlocs}, and \code{initvals}. The next step after this is to address the adjacency matrices for communication and for dispersal.
 }
 \details{
-Updated 2020-06-11
+Updated 2020-07-07
 }
 \examples{
-x2 <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readorgenxy='gen', extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=5, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=5, numorpropb='num', plotmp=T)
-x3 <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readorgenxy='gen', extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=15, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=15, numorpropb='num', plotmp=T)
-x4.readxy <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readorgenxy='read', xymat2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo.s=F, loctypei='random', numiniti=2, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=3, numorpropb='num', plotmp=T)
+x2 <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=5, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=5, numorpropb='num', plotmp=T)
+x3 <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, xtx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=15, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=15, numorpropb='num', plotmp=T)
+x4.readxy <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=T, xymat2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo.s=F, loctypei='random', numiniti=2, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=3, numorpropb='num', plotmp=T)
 }
 \keyword{experiments}
 \keyword{simulation}
