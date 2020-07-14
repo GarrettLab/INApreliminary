@@ -14,6 +14,7 @@ multsame2(
   dispamn2,
   readcomamn2,
   readdispamn2,
+  manredestab22,
   efmn22,
   efsd22,
   efthr22,
@@ -81,6 +82,8 @@ multsame2(
 \item{readcomamn2}{if T, the communication adjacency matrix is read in rather than being generated from the outset}
 
 \item{readdispamn2}{if T, the dispersal adjacency matrix is read in rather than being generated from the outset}
+
+\item{manredestab22}{if T, the management reduces the probability of establishment by the indicated proportion; if F, the management reduces the probability of NOT establishing by the indicated proportion}
 
 \item{efmn22}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
 
@@ -191,8 +194,8 @@ This function runs and summarizes multiple INA simulations with the same paramet
 Updated 2020-07-07
 }
 \examples{
-x5 <- multsame2(nreals=10, nsteps2=3, usethresh=F, readxymat2=T, xymatinn2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=NA, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=NA, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=0.1, padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
-x3 <- multsame2(nreals=2,nsteps=3, usethresh=F, readxymat2=T, xymatinn2=matrix(runif(n=100)*100,byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=0.05, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=0.05, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=c(0,1), padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
+x5 <- multsame2(nreals=10, nsteps2=3, usethresh=F, readxymat2=T, xymatinn2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, manredestab22=T, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=NA, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=NA, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=0.1, padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
+x3 <- multsame2(nreals=2,nsteps=3, usethresh=F, readxymat2=T, xymatinn2=matrix(runif(n=100)*100,byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, manredestab22=T, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=0.05, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=0.05, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=c(0,1), padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
 }
 \keyword{experiments}
 \keyword{simulation}

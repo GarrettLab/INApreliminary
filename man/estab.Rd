@@ -9,6 +9,7 @@ estab(
   dispvec,
   estpm,
   estpsd,
+  manredestab1,
   efmn,
   efsd,
   plotmp = F,
@@ -26,6 +27,8 @@ estab(
 
 \item{estpsd}{sd in probability of establishment in absence of management (used if \code{readpestab} = F)}
 
+\item{manredestab1}{if T, the management reduces the probability of establishment by a proportion with mean efmn and sd efsd; if F, the mangement reduces the probability of NOT establishing}
+
 \item{efmn}{mean effect of management (proportional reduction in estabp, where the combination of efmn = 1 and efsd = 0 makes establishment impossible)}
 
 \item{efsd}{sd of management effect}
@@ -42,12 +45,12 @@ estab(
 This function determines whether a bioentity establishes or not at each node.  It is similar in some ways to the function \code{makedec}, which determines whether management is adopted.
 }
 \details{
-Updated 2020-07-07
+Updated 2020-07-12
 }
 \examples{
-x6 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, efmn=0.1, efsd=0.1, plotmp=T)
-x7 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, efmn=0.9, efsd=0.1, plotmp=T)
-x8 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=T, pestab=c(0.9,0.1,0.1,0.1,0.1,0.9), efmn=0.9, efsd=0.1, plotmp=T)
-x9 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=T, pestab=c(0.9,0.1,0.1,0.1,0.1,0.9), efmn=0.1, efsd=0.1, plotmp=T)
+x6 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, manredestab1=T, efmn=0.1, efsd=0.1, plotmp=T)
+x7 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, manredestab1=T, efmn=0.9, efsd=0.1, plotmp=T)
+x8 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=T, pestab=c(0.9,0.1,0.1,0.1,0.1,0.9), manredestab1=T, efmn=0.9, efsd=0.1, plotmp=T)
+x9 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=T, pestab=c(0.9,0.1,0.1,0.1,0.1,0.9), manredestab1=T, efmn=0.1, efsd=0.1, plotmp=T)
 }
 \keyword{establishment}

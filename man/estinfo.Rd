@@ -17,11 +17,11 @@ estinfo(efmn, efsd, efthr, sampeffort)
 }
 \description{
 This function adds a 'science of science' component to INA simulations, allowing consideration of whether managements with lower mean effects and/or higher variability in effect (and/or more limited study, reflected in higher standard error of the mean management effect size) may not have regional effects due to lack of communication.
-The management effect is a function of the mean effect and the standard error of the mean of the effect.  Another input is the minimum size (as a proportion) of the effect necessary to trigger communication.  The output is the observed change in the probability of establishment, as a proportion, and a logic variable indicating whether the effect is greater than the communication threshold.  (Used by function INAscene)
+The management effect is a function of the mean effect and the standard error of the mean of the effect.  Another input is the minimum size (as a proportion) of the effect necessary to trigger communication.  The output is the observed change in the probability of establishment, as a proportion, and a logic variable indicating whether the effect is greater than the communication threshold.  (Used by function INAscene, called directly by function setup2.)
 If the communication threshold is not a component of simulations, then communication can occur regardless of management effect size
 }
 \details{
-Updated 2020-06-02
+Updated 2020-07-12
 }
 \examples{
 estinfo(efmn=0.5, efsd=0.5, efthr=0.5, sampeffort=1)

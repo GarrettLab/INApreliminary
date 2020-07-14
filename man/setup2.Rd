@@ -5,6 +5,7 @@
 \title{Set up starting conditions for INA scenario analysis}
 \usage{
 setup2(
+  manredestab2,
   efmn2,
   efsd2,
   efthr2,
@@ -32,6 +33,8 @@ setup2(
 )
 }
 \arguments{
+\item{manredestab2}{if T, the management reduces the probability of establishment by probability with mean efmn2 and sd efsd2; if F, the management reduces the probability of NOT establishing by the same}
+
 \item{efmn2}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
 
 \item{efsd2}{(estinfo) the standard deviation of the effect}
@@ -82,12 +85,12 @@ setup2(
 This function sets up all starting conditions, including the estimated effect size, the x,y coordinates of the nodes, the initial information locations, and the initial species locations. It runs functions \code{estinfo}, \code{genlocs}, and \code{initvals}. The next step after this is to address the adjacency matrices for communication and for dispersal.
 }
 \details{
-Updated 2020-07-07
+Updated 2020-07-12
 }
 \examples{
-x2 <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=5, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=5, numorpropb='num', plotmp=T)
-x3 <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, xtx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=15, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=15, numorpropb='num', plotmp=T)
-x4.readxy <- setup2(efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=T, xymat2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo.s=F, loctypei='random', numiniti=2, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=3, numorpropb='num', plotmp=T)
+x2 <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=5, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=5, numorpropb='num', plotmp=T)
+x3 <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, xtx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=15, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=15, numorpropb='num', plotmp=T)
+x4.readxy <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=T, xymat2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo.s=F, loctypei='random', numiniti=2, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=3, numorpropb='num', plotmp=T)
 }
 \keyword{experiments}
 \keyword{simulation}

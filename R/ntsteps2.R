@@ -4,7 +4,7 @@
 #' This function gives the info status and establishment status at each node after multiple time steps. Its use follows use of the function \code{setup2}, or another source of node locations and initial conditions.  (Note that communication and dispersal status are given for the beginning of the time step (rather than for the end), so the corresponding output for these has length equal to the number of time steps plus 1.  In contrast, adoption and establishment output is of length equal to the number of time steps.) It uses the following functions, as needed: genmovnet, spreadstep, makedec, and estab. It draws on output from function setup2 in terms of whether communication occurs (estinfo), generated geographic locations of nodes as needed (genloc), and the initial locations for management information and the bioentity.
 
 #'
-#' Updated 2020-06-27
+#' Updated 2020-07-13
 
 #' @param nsteps number of time steps to be evaluated
 
@@ -57,37 +57,38 @@
 
 #' @keywords simulation experiments
 #' @export 
+#' @import truncnorm
 
 #' @examples
-#' x2 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
+#' x2 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, manredestab2=T, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
 
-#' x2z <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=0.5, plbcn=2, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=0.5, plbdn=2, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1, max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
+#' x2z <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=0.5, plbcn=2, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=0.5, plbdn=2, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, manredestab2=T, efmnn=0.5, efsdn=0.1, max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
 
-#' x3 <- ntsteps2(nsteps=2, infon=T, xymatinn=matrix(runif(n=100)*100,byrow=T,ncol=2), vect1cn=c(rep(1,10),rep(0,40)), vect1dn=sample(c(rep(1,10),rep(0,40))), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
+#' x3 <- ntsteps2(nsteps=2, infon=T, xymatinn=matrix(runif(n=100)*100,byrow=T,ncol=2), vect1cn=c(rep(1,10),rep(0,40)), vect1dn=sample(c(rep(1,10),rep(0,40))), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', adpmn=0.5, adpsdn=0.1, estpmn=0.5, estpsdn=0.1, manredestab2=T, efmnn=0.5, efsdn=0.1,  max1dn=T, readpestabn=F, readpadoptn=F, plotmpn=T)
 
-#' x9 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1),comamn=matrix(c(0,1,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), dispamn=matrix(c(0,0,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), readcomamn=T, readdispamn=T, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
+#' x9 <- ntsteps2(nsteps=3, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1),comamn=matrix(c(0,1,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), dispamn=matrix(c(0,0,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), readcomamn=T, readdispamn=T, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, manredestab2=T, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
 
-#' x12 <- ntsteps2(nsteps=3, infon=F, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
+#' x12 <- ntsteps2(nsteps=3, infon=F, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, manredestab2=T, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
 
-#' x13 <- ntsteps2(nsteps=5, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
+#' x13 <- ntsteps2(nsteps=5, infon=T, xymatinn=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), vect1cn=c(1,1,1,0,0,0), vect1dn=c(0,0,0,1,1,1), distfcn='powerlaw', lktypecn='pa', placn=1, plbcn=1, tlinkcn=0.1, distfdn='powerlaw', lktypedn='pa', pladn=1, plbdn=1, tlinkdn=0.1, readcomamn=F, readdispamn=F, diag1cn=T, mattypecn='fromto', max1cn=T, diag1dn=T, mattypedn='fromto', max1dn=T, adpmn=0.3, adpsdn=0.1, estpmn=0.2, estpsdn=0.1, manredestab2=T, efmnn=0.5, efsdn=0.1, readpestabn=F, readpadoptn=F, plotmpn=T)
 
 
-# it looks like readpadopt is missing?
 
-ntsteps2 <- function(nsteps, xymatinn, infon, vect1cn, vect1dn, comamn, dispamn, readcomamn, readdispamn, distfcn, lktypecn, placn, plbcn, randpcn, tlinkcn, distfdn, lktypedn, pladn, plbdn, randpdn, tlinkdn, diag1cn, mattypecn, max1cn, diag1dn, mattypedn, max1dn, readpadoptn, padoptn, adpmn, adpsdn, estpmn, estpsdn, efmnn, efsdn, pestabn, readpestabn, plotmpn=F){
+ntsteps2 <- function(nsteps, xymatinn, infon, vect1cn, vect1dn, comamn, dispamn, readcomamn, readdispamn, distfcn, lktypecn, placn, plbcn, randpcn, tlinkcn, distfdn, lktypedn, pladn, plbdn, randpdn, tlinkdn, diag1cn, mattypecn, max1cn, diag1dn, mattypedn, max1dn, readpadoptn, padoptn, adpmn, adpsdn, estpmn, estpsdn, manredestab2, efmnn, efsdn, pestabn, readpestabn, plotmpn=F){
 
-# Numbering of steps refers to the numbering used in the User's Manual (1 through 5)
+# Numbering of steps refers to the numbering used in the INA User's Manual (1-5)
 
 nodlen <- nrow(xymatinn) # number of nodes
 
-# 5. If the observed management effect exceeds threshold, or if the 'science of science' threshold is not used
-# If these criteria are not met, there is no communication
+# 5. If the observed management effect exceeds threshold, or if the 'science of science' threshold is not used - the following commands are implemented
+# (If these criteria are not met, there is no communication)
 
 if(infon){ 
 
   # 3.1. communication adjacency matrix - underlying probabilities
 
   # if generating the communication adj mat (not reading it in)
+
   if (!readcomamn){ 
     comamn <- genmovnet(xymat=xymatinn, distf=distfcn, randp=randpcn, lktype='pr', pla=placn, plb=plbcn)
   }
@@ -95,8 +96,9 @@ if(infon){
   # 4.1. decision making - underlying probabilities of adoption
   
   # if generating the vector of probabilities of adoption for each node (not reading it in)
+
   if (!readpadoptn){
-    padoptn <- rtruncnorm(n=nodlen, a=0, b=1, mean = adpmn, sd=adpsdn)
+    padoptn <- truncnorm::rtruncnorm(n=nodlen, a=0, b=1, mean = adpmn, sd=adpsdn)
   }
 
 } else if (!infon){ # 5. if there is no information spread
@@ -106,13 +108,13 @@ if(infon){
   padoptn <- 0
 }
 
-### end first infon-determined portion
-
+### end first infon-determined portion for socioeconomic network
 
 
 # 3.2. bioentity dispersal adjacency matrix - underlying probabilities
 
 # if generating the bioentity dispersal network (rather than reading it in)
+
 if (!readdispamn){ 
   dispamn <- genmovnet(xymat=xymatinn, distf=distfdn, randp=randpdn, lktype='pr', pla=pladn, plb=plbdn)  
 }
@@ -120,8 +122,10 @@ if (!readdispamn){
 # 4.2. establishment - underlying probabilities of establishment
   
   # if generating the vector of probabilities of establishment for each node (not reading it in)
+
   if (!readpestabn){
-    pestabn <- rtruncnorm(n=nodlen, a=0, b=1, mean = estpmn, sd=estpsdn)
+
+    pestabn <- truncnorm::rtruncnorm(n=nodlen, a=0, b=1, mean = estpmn, sd=estpsdn)
   }
 
 
@@ -151,7 +155,7 @@ if(!infon){
 
 for(j in 1:nsteps) {
 
-if(infon){ # if estimated management effect exceeds threshold
+if(infon){ # if estimated management effect exceeds threshold, or there is no threshold used
 
   # communication outcome
 
@@ -169,8 +173,6 @@ if(infon){ # if estimated management effect exceeds threshold
   vect1cL[[j+1]] <- vect2c
 
   # outcome for adoption of management
-
-### !!! here forces reading in the padopt vector
 
   decvec2 <- makedec(comvec=vect2c, xymat=xymatinn, padopt=padoptn, readpadopt=T, plotmp=F)
 
@@ -197,9 +199,7 @@ vect1dL[[j+1]] <- vect2d
 
 # outcome for establishment
 
-### !!! here forces reading in the pestab vector
-
-estabvec2 <- estab(decvec=decvec2, dispvec=vect2d, pestab=pestabn, readpestab=T, efmn=efmnn, efsd=efsdn, plotmp=F)
+estabvec2 <- estab(decvec=decvec2, dispvec=vect2d, pestab=pestabn, readpestab=T, manredestab1=manredestab2, efmn=efmnn, efsd=efsdn, plotmp=F)
 
 estabvecL[[j]] <- estabvec2
 
