@@ -7,15 +7,15 @@
 estab(
   decvec,
   dispvec,
-  estpm,
-  estpsd,
-  manredestab1,
-  efmn,
-  efsd,
+  probestabmean4,
+  probestabsd4,
+  maneffdir4,
+  maneffmean4n,
+  maneffsd4n,
   plotmp = F,
-  xymat,
-  readpestab,
-  pestab
+  geocoords4n,
+  readprobestabvec4,
+  probestabvec4
 )
 }
 \arguments{
@@ -23,34 +23,38 @@ estab(
 
 \item{dispvec}{vector of 1=sp has dispersed to node, 0=sp has not dispersed to node}
 
-\item{estpm}{mean probability of establishment (new or CONTINUED) in absence of management (used if \code{readpestab} =  F)}
+\item{probestabmean4}{mean probability of establishment (new or CONTINUED) in absence of management (used if \code{readprobestabvec4} =  F)}
 
-\item{estpsd}{sd in probability of establishment in absence of management (used if \code{readpestab} = F)}
+\item{probestabsd4}{sd in probability of establishment in absence of management (used if \code{readprobestabvec4} = F)}
 
-\item{manredestab1}{if T, the management reduces the probability of establishment by a proportion with mean efmn and sd efsd; if F, the mangement reduces the probability of NOT establishing}
+\item{maneffdir4}{if maneffdir4='decrease_estab', the management reduces the probability of establishment; if maneffdir4='increase_estab', the management reduces the probability that establishment does NOT occur}
 
-\item{efmn}{mean effect of management (proportional reduction in estabp, where the combination of efmn = 1 and efsd = 0 makes establishment impossible)}
+\item{maneffmean4n}{mean effect of management (proportional change in estabp, where the combination of maneffmean4n = 1 and maneffsd4n = 0 makes establishment impossible)}
 
-\item{efsd}{sd of management effect}
+\item{maneffsd4n}{sd of management effect}
 
 \item{plotmp}{if T, then map of establishment is plotted}
 
-\item{xymat}{matrix of x,y coordinates of nodes (used if \code{plotmp} = T)}
+\item{geocoords4n}{matrix of x,y coordinates of nodes (used if \code{plotmp} = T)}
 
-\item{readpestab}{if T, then a vector \code{pestab} is read in; otherwise the vector is generated using \code{estpm} and \code{estpsd}}
+\item{readprobestabvec4}{if T, then a vector \code{probestabvec4} is read in; otherwise the vector is generated using \code{probestabmean4} and \code{probestabsd4}}
 
-\item{pestab}{vector of probabilities of establishment (read in or generated when the function is run, depending on \code{readpestab} equal to T or F)}
+\item{probestabvec4}{vector of probabilities of establishment (read in or generated when the function is run, depending on \code{readprobestabvec4} equal to T or F)}
 }
 \description{
 This function determines whether a bioentity establishes or not at each node.  It is similar in some ways to the function \code{makedec}, which determines whether management is adopted.
 }
 \details{
-Updated 2020-07-12
+Updated 2020-09-05
 }
 \examples{
-x6 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, manredestab1=T, efmn=0.1, efsd=0.1, plotmp=T)
-x7 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=F, estpm=0.5, estpsd=0.1, manredestab1=T, efmn=0.9, efsd=0.1, plotmp=T)
-x8 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=T, pestab=c(0.9,0.1,0.1,0.1,0.1,0.9), manredestab1=T, efmn=0.9, efsd=0.1, plotmp=T)
-x9 <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readpestab=T, pestab=c(0.9,0.1,0.1,0.1,0.1,0.9), manredestab1=T, efmn=0.1, efsd=0.1, plotmp=T)
+x6decrease <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=F, probestabmean4=0.5, probestabsd4=0.1, maneffdir4='decrease_estab', maneffmean4n=0.1, maneffsd4n=0.1, plotmp=T)
+x7decrease <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=F, probestabmean4=0.5, probestabsd4=0.1, maneffdir4='decrease_estab', maneffmean4n=0.9, maneffsd4n=0.1, plotmp=T)
+x8decrease <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=T, probestabvec4=c(0.9,0.1,0.1,0.1,0.1,0.9), maneffdir4='decrease_estab', maneffmean4n=0.9, maneffsd4n=0.1, plotmp=T)
+x9decrease <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=T, probestabvec4=c(0.9,0.1,0.1,0.1,0.1,0.9), maneffdir4='decrease_estab', maneffmean4n=0.1, maneffsd4n=0.1, plotmp=T)
+x6increase <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=F, probestabmean4=0.5, probestabsd4=0.1, maneffdir4='increase_estab', maneffmean4n=0.1, maneffsd4n=0.1, plotmp=T)
+x7increase <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=F, probestabmean4=0.5, probestabsd4=0.1, maneffdir4='increase_estab', maneffmean4n=0.9, maneffsd4n=0.1, plotmp=T)
+x8increase <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=T, probestabvec4=c(0.9,0.1,0.1,0.1,0.1,0.9), maneffdir4='increase_estab', maneffmean4n=0.9, maneffsd4n=0.1, plotmp=T)
+x9increase <- estab(decvec=c(1,1,1,0,0,0), dispvec=c(1,1,1,1,1,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T, ncol=2), readprobestabvec4=T, probestabvec4=c(0.9,0.1,0.1,0.1,0.1,0.9), maneffdir4='increase_estab', maneffmean4n=0.1, maneffsd4n=0.1, plotmp=T)
 }
 \keyword{establishment}

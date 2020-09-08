@@ -4,20 +4,28 @@
 \alias{makedec}
 \title{Decisions at each node about whether to adopt management}
 \usage{
-makedec(comvec, xymat, adpm, adpsd, readpadopt, padopt, plotmp = F)
+makedec(
+  comvec,
+  geocoords4n,
+  probadoptmean4,
+  probadoptsd4,
+  readprobadoptvec4,
+  probadoptvec4,
+  plotmp = F
+)
 }
 \arguments{
 \item{comvec}{vector of 1=info is present, 0=info is not present}
 
-\item{xymat}{matrix of x,y coordinates for the nodes, for mapping if \code{plotmp} = T (and for determining the number of nodes in current version)}
+\item{geocoords4n}{matrix of x,y coordinates for the nodes, for mapping if \code{plotmp} = T (and for determining the number of nodes in current version)}
 
-\item{adpm}{mean probability of adopting management if informed}
+\item{probadoptmean4}{mean probability of adopting management if informed}
 
-\item{adpsd}{sd for drawing probability of adoption, in truncated normal distribution}
+\item{probadoptsd4}{sd for drawing probability of adoption, in truncated normal distribution}
 
-\item{readpadopt}{if T, then a VECTOR of padopt values is read in; if F, \code{adpm} and \code{adpsd} are used to generate the vector}
+\item{readprobadoptvec4}{if T, then a VECTOR of probadoptvec4 values is read in - if F, \code{probadoptmean4} and \code{probadoptsd4 } are used to generate the vector}
 
-\item{padopt}{vector of probabilities of adoption if informed for nodes in the network (\code{readpadopt} determines whether \code{padopt} is read in to \code{makedec} or generated within \code{makedec} based on \code{adpm} and \code{adpsd})}
+\item{probadoptvec4}{vector of probabilities of adoption if informed for nodes in the network (\code{readprobadoptvec4} determines whether \code{probadoptvec4} is read in to \code{makedec} or generated within \code{makedec} based on \code{probadoptmean4} and \code{probadoptsd4 })}
 
 \item{plotmp}{if T, then map of decision is plotted}
 }
@@ -25,11 +33,11 @@ makedec(comvec, xymat, adpm, adpsd, readpadopt, padopt, plotmp = F)
 This function generates decisions at each node about management
 }
 \details{
-Updated 2020-07-07
+Updated 2020-09-05
 }
 \examples{
-x5 <- makedec(comvec=c(1,1,1,0,0,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readpadopt=F, adpm=0.1, adpsd=0.1, plotmp=T)
-x6 <- makedec(comvec=c(1,1,1,0,0,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readpadopt=F, adpm=0.5, adpsd=0.1, plotmp=T)
-x7 <- makedec(comvec=c(1,1,1,0,0,0), xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readpadopt=T, padopt=c(0.1,0.1,0.9,0.1,0.2,0.3), plotmp=T)
+x5 <- makedec(comvec=c(1,1,1,0,0,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readprobadoptvec4=F, probadoptmean4=0.1, probadoptsd4 =0.1, plotmp=T)
+x6 <- makedec(comvec=c(1,1,1,0,0,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readprobadoptvec4=F, probadoptmean4=0.5, probadoptsd4 =0.1, plotmp=T)
+x7 <- makedec(comvec=c(1,1,1,0,0,0), geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3), byrow=T,ncol=2), readprobadoptvec4=T, probadoptvec4=c(0.1,0.1,0.9,0.1,0.2,0.3), plotmp=T)
 }
 \keyword{decisions}

@@ -4,36 +4,32 @@
 \alias{genmovnet}
 \title{Generate network adjacency matrix for movement}
 \usage{
-genmovnet(xymat, distf, iplot = F, lktype, randp, pla, plb, tlink)
+genmovnet(geocoords4n, amdist4, iplot = F, amrandp4, ampla4, amplb4)
 }
 \arguments{
-\item{xymat}{the matrix of xy coordinates for node locations, used when the probability of a link is a function of distance (note that the distance between each pair of locations is assumed to be greater than 1)}
+\item{geocoords4n}{the matrix of xy coordinates for node locations, used when the probability of a link is a function of distance (note that the distance between each pair of locations is assumed to be greater than 1)}
 
-\item{distf}{the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw' (inverse power law) or 'exp' (negative exponential, to be added)}
+\item{amdist4}{the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw' (inverse power law) or 'exp' (negative exponential, to be added)}
 
 \item{iplot}{if T, generates igraph plot of adjacency matrix}
 
-\item{lktype}{link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
+\item{amrandp4}{random matrix with entries binomial with probability p}
 
-\item{randp}{random matrix with entries binomial with probability p}
+\item{ampla4}{inverse power law parameter a in ad^(-b)}
 
-\item{pla}{inverse power law parameter a in ad^(-b)}
-
-\item{plb}{inverse power law parameter b in ad^(-b)}
-
-\item{tlink}{threshold for whether link exists}
+\item{amplb4}{inverse power law parameter b in ad^(-b)}
 }
 \description{
 This function generates an adjacency matrix for movement, assumed symmetric (in this version).  It is used by functions including \code{INAscene}. The movement adjacency matrix is composed of 1s and 0s only if lktype="pa" option is used
 }
 \details{
-Updated 2020-06-02
+Updated 2020-09-05
 }
 \examples{
-x1 <- genmovnet(j <- genlocs(extx=c(0,50), exty=c(0,50), nn=50, rand=TRUE), distf='random', randp=0.01, lktype='pa', tlink=0.05, iplot=T)
-x2 <- genmovnet(j <- genlocs(extx=c(0,50), exty=c(0,50), nn=100, rand=TRUE), distf='random', randp=0.02, lktype='pa', tlink=0.05, iplot=T)
-x7 <- genmovnet(xymat=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),ncol=2,byrow=T), distf='powerlaw', pla=2, plb=1, lktype='pa', tlink=0.9, iplot=T)
-x8 <- genmovnet(j <- genlocs(nn=30, extx = c(0, 10), exty = c(0, 10)), distf='powerlaw', pla=2, plb=1, lktype='pa', tlink=0.9, iplot=T)
-x9 <- genmovnet(j <- genlocs(nn=300, extx = c(0, 10), exty = c(0, 100)), distf='powerlaw', pla=2, plb=1, lktype='pa', tlink=0.95, iplot=T)
+x1 <- genmovnet(j <- genlocs(xrange4=c(0,50), yrange4=c(0,50), numnodes4=50, randgeo4=TRUE), amdist4='random', amrandp4=0.01, iplot=T)
+x2 <- genmovnet(j <- genlocs(xrange4=c(0,50), yrange4=c(0,50), numnodes4=100, randgeo4=TRUE), amdist4='random', amrandp4=0.02, iplot=T)
+x7 <- genmovnet(geocoords4n=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),ncol=2,byrow=T), amdist4='powerlaw', ampla4=2, amplb4=1, iplot=T)
+x8 <- genmovnet(j <- genlocs(numnodes4=30, xrange4 = c(0, 10), yrange4 = c(0, 10)), amdist4='powerlaw', ampla4=2, amplb4=1, iplot=T)
+x9 <- genmovnet(j <- genlocs(numnodes4=300, xrange4 = c(0, 10), yrange4 = c(0, 100)), amdist4='powerlaw', ampla4=2, amplb4=1, iplot=T)
 }
 \keyword{dispersal}

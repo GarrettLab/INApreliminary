@@ -7,27 +7,30 @@
 
 #' If the communication threshold is not a component of simulations, then communication can occur regardless of management effect size
 #'
-#' Updated 2020-07-12
+#' Updated 2020-09-05
 
-#' @param efmn the underlying mean change in establishment probability (as a proportion) by the management being considered
-#' @param efsd the standard deviation of the management effect on establishment 
-#' @param efthr the threshold management effect size for communicating about the management (if this is set to zero, then communication always occurs - there is no minimum management effect size)
-#' @param sampeffort sampling effort, where greater samping effort reduces the error in estimating the management effect
+#' @param maneffmean4s the underlying mean change in establishment probability (as a proportion) by the management being considered
+#' @param maneffsd4s the standard deviation of the management effect on establishment 
+#' @param maneffthresh4 the threshold management effect size for communicating about the management (if this is set to zero, then communication always occurs - there is no minimum management effect size)
+#' @param sampeffort4 sampling effort, where greater samping effort reduces the error in estimating the management effect
 #' @keywords information
 #' @export 
 #' @import truncnorm
 
 #' @examples
-#' estinfo(efmn=0.5, efsd=0.5, efthr=0.5, sampeffort=1)
-#' estinfo(efmn=0.1, efsd=0.5, efthr=0.5, sampeffort=10)
-#' estinfo(efmn=0.5, efsd=0.5, efthr=0.5, sampeffort=10)
+
+#' estinfo(maneffmean4s=0.5, maneffsd4s=0.5, maneffthresh4=0.5, sampeffort4=1)
+
+#' estinfo(maneffmean4s=0.1, maneffsd4s=0.5, maneffthresh4=0.5, sampeffort4=10)
+
+#' estinfo(maneffmean4s=0.5, maneffsd4s=0.5, maneffthresh4=0.5, sampeffort4=10)
 
 
-estinfo <- function(efmn, efsd, efthr, sampeffort){
+estinfo <- function(maneffmean4s, maneffsd4s, maneffthresh4, sampeffort4){
 
-  obschange <- sum(rtruncnorm(n=sampeffort, a=0, b=1, mean=efmn, sd=efsd))/sampeffort
+  obschange <- sum(rtruncnorm(n=sampeffort4, a=0, b=1, mean=maneffmean4s, sd=maneffsd4s))/sampeffort4
 
-  com.yes <- obschange > efthr
+  com.yes <- obschange > maneffthresh4
 
   list(obschange=obschange, com.yes=com.yes)
 }

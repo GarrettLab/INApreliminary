@@ -3,26 +3,26 @@
 #'
 #' This function generates the geographic locations of nodes in network, for simulation studies where geographic locations are not observed.
 #'
-#' Updated 2020-06-02
+#' Updated 2020-09-05
 
-#' @param extx range of x coordinates
-#' @param exty range of y coordinates
-#' @param nn the number of nodes
-#' @param rand if TRUE then locations are randomly generated (other options for distributing locations will be added)
+#' @param xrange4 range of x coordinates
+#' @param yrange4 range of y coordinates
+#' @param numnodes4 the number of nodes
+#' @param randgeo4 if TRUE then locations are randomly generated (other options for distributing locations will be added)
 #' @keywords geography locations
 #' @export
 
 #' @examples
-#' xymat99 <- genlocs(extx=c(0,50), exty=c(0,50), nn=100, rand=TRUE)
+#' geolocs99 <- genlocs(xrange4=c(0,50), yrange4=c(0,50), numnodes4=100, randgeo4=TRUE)
 
 
-genlocs <- function(extx, exty, nn, rand=TRUE){
+genlocs <- function(xrange4, yrange4, numnodes4, randgeo4=TRUE){
 
-  if (rand) {
+  if (randgeo4) {
 
-    xvec <- extx[1] + (extx[2] - extx[1])*runif(n=nn)
+    xvec <- xrange4[1] + (xrange4[2] - xrange4[1])*runif(n=numnodes4)
 
-    yvec <- exty[1] + (exty[2] - exty[1])*runif(n=nn)
+    yvec <- yrange4[1] + (yrange4[2] - yrange4[1])*runif(n=numnodes4)
 
   }
 

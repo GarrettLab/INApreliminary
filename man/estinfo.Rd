@@ -4,16 +4,16 @@
 \alias{estinfo}
 \title{Estimates the management effect on the probability of establishment of a bioentity, and whether the effect is large enough to trigger communication about the management}
 \usage{
-estinfo(efmn, efsd, efthr, sampeffort)
+estinfo(maneffmean4s, maneffsd4s, maneffthresh4, sampeffort4)
 }
 \arguments{
-\item{efmn}{the underlying mean change in establishment probability (as a proportion) by the management being considered}
+\item{maneffmean4s}{the underlying mean change in establishment probability (as a proportion) by the management being considered}
 
-\item{efsd}{the standard deviation of the management effect on establishment}
+\item{maneffsd4s}{the standard deviation of the management effect on establishment}
 
-\item{efthr}{the threshold management effect size for communicating about the management (if this is set to zero, then communication always occurs - there is no minimum management effect size)}
+\item{maneffthresh4}{the threshold management effect size for communicating about the management (if this is set to zero, then communication always occurs - there is no minimum management effect size)}
 
-\item{sampeffort}{sampling effort, where greater samping effort reduces the error in estimating the management effect}
+\item{sampeffort4}{sampling effort, where greater samping effort reduces the error in estimating the management effect}
 }
 \description{
 This function adds a 'science of science' component to INA simulations, allowing consideration of whether managements with lower mean effects and/or higher variability in effect (and/or more limited study, reflected in higher standard error of the mean management effect size) may not have regional effects due to lack of communication.
@@ -21,11 +21,11 @@ The management effect is a function of the mean effect and the standard error of
 If the communication threshold is not a component of simulations, then communication can occur regardless of management effect size
 }
 \details{
-Updated 2020-07-12
+Updated 2020-09-05
 }
 \examples{
-estinfo(efmn=0.5, efsd=0.5, efthr=0.5, sampeffort=1)
-estinfo(efmn=0.1, efsd=0.5, efthr=0.5, sampeffort=10)
-estinfo(efmn=0.5, efsd=0.5, efthr=0.5, sampeffort=10)
+estinfo(maneffmean4s=0.5, maneffsd4s=0.5, maneffthresh4=0.5, sampeffort4=1)
+estinfo(maneffmean4s=0.1, maneffsd4s=0.5, maneffthresh4=0.5, sampeffort4=10)
+estinfo(maneffmean4s=0.5, maneffsd4s=0.5, maneffthresh4=0.5, sampeffort4=10)
 }
 \keyword{information}

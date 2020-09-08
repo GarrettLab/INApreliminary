@@ -4,25 +4,25 @@
 \alias{genlocs}
 \title{Generate geographic locations of nodes in network}
 \usage{
-genlocs(extx, exty, nn, rand = TRUE)
+genlocs(xrange4, yrange4, numnodes4, randgeo4 = TRUE)
 }
 \arguments{
-\item{extx}{range of x coordinates}
+\item{xrange4}{range of x coordinates}
 
-\item{exty}{range of y coordinates}
+\item{yrange4}{range of y coordinates}
 
-\item{nn}{the number of nodes}
+\item{numnodes4}{the number of nodes}
 
-\item{rand}{if TRUE then locations are randomly generated (other options for distributing locations will be added)}
+\item{randgeo4}{if TRUE then locations are randomly generated (other options for distributing locations will be added)}
 }
 \description{
 This function generates the geographic locations of nodes in network, for simulation studies where geographic locations are not observed.
 }
 \details{
-Updated 2020-06-02
+Updated 2020-09-05
 }
 \examples{
-xymat99 <- genlocs(extx=c(0,50), exty=c(0,50), nn=100, rand=TRUE)
+geolocs99 <- genlocs(xrange4=c(0,50), yrange4=c(0,50), numnodes4=100, randgeo4=TRUE)
 }
 \keyword{geography}
 \keyword{locations}

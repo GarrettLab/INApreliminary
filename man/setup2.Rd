@@ -5,92 +5,91 @@
 \title{Set up starting conditions for INA scenario analysis}
 \usage{
 setup2(
-  manredestab2,
-  efmn2,
-  efsd2,
-  efthr2,
-  sampeffort2,
-  usethresh2,
-  readxymatj,
-  xymat2,
-  extx2,
-  exty2,
-  nodnum2,
-  rand2,
-  readinitinfo.s,
-  initinfo.s,
-  loctypei,
-  numiniti,
-  numorpropi,
-  propiniti,
-  readinitbio.s,
-  initbio.s,
-  loctypeb,
-  numinitb,
-  numorpropb,
-  propinitb,
+  maneffmean3s,
+  maneffsd3s,
+  maneffthresh3,
+  sampeffort3,
+  usethreshman3,
+  readgeocoords3s,
+  geocoords3s,
+  xrange3,
+  yrange3,
+  numnodes3,
+  randgeo3,
+  readinitinfo3,
+  initinfo3,
+  initinfo.dist3,
+  initinfo.n3,
+  initinfo.norp3,
+  initinfo.p3,
+  readinitbio3,
+  initbio3,
+  initbio.dist3,
+  initbio.n3,
+  initbio.norp3,
+  initbio.p3,
   plotmp = F
 )
 }
 \arguments{
-\item{manredestab2}{if T, the management reduces the probability of establishment by probability with mean efmn2 and sd efsd2; if F, the management reduces the probability of NOT establishing by the same}
+\item{maneffmean3s}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
 
-\item{efmn2}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
+\item{maneffsd3s}{(estinfo) the standard deviation of the effect}
 
-\item{efsd2}{(estinfo) the standard deviation of the effect}
+\item{maneffthresh3}{(estinfo) the threshold effect size for communicating about management (if maneffthresh3 = 0 there is no threshold so communication can always occur)}
 
-\item{efthr2}{(estinfo) the threshold effect size for communicating about management (if efthr2 = 0 there is no threshold so communication can always occur)}
+\item{sampeffort3}{(estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect}
 
-\item{sampeffort2}{(estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect}
+\item{usethreshman3}{() if T, the threshold for management maneffthresh3 is used to determine whether communication occurs; communication only occurs if the observed management effect is greater than maneffthresh3}
 
-\item{readxymatj}{read in the xy coordinates for locations (readxymatj = T) or generate the xy coordinates by calling genlocs (readxymatj = F)}
+\item{readgeocoords3s}{read in the xy coordinates for locations (readgeocoords3s = T) or generate the xy coordinates by calling genlocs (readgeocoords3s = F)}
 
-\item{xymat2}{coordinates for node geographic locations, ncol= 2 (x,y) and nrow=number of nodes (to be read in if readorgenxy = 'read')}
+\item{geocoords3s}{coordinates for node geographic locations, ncol= 2 (x,y) and nrow=number of nodes (to be read in if readorgenxy = 'read')}
 
-\item{extx2}{(genlocs) range of x coordinates}
+\item{xrange3}{(genlocs) range of x coordinates}
 
-\item{exty2}{(genlocs) range of y coordinates}
+\item{yrange3}{(genlocs) range of y coordinates}
 
-\item{nodnum2}{(genlocs) the number of nodes (nn in genlocs)}
+\item{numnodes3}{(genlocs) the number of nodes (nn in genlocs)}
 
-\item{rand2}{(genlocs) if TRUE then locations are randomly generated}
+\item{randgeo3}{(genlocs) if TRUE then locations are randomly generated}
 
-\item{readinitinfo.s}{if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated}
+\item{readinitinfo3}{if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated}
 
-\item{initinfo.s}{the vector of initial values read in if readinitinfo.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information}
+\item{initinfo3}{the vector of initial values read in if readinitinfo3 == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information}
 
-\item{loctypei}{info (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
+\item{initinfo.dist3}{(initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
 
-\item{numiniti}{info (initvals) the number of initial locations for presence}
+\item{initinfo.n3}{(initvals) the number of initial locations for presence}
 
-\item{numorpropi}{info (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+\item{initinfo.norp3}{(initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
 
-\item{propiniti}{info (initvals) the proportion of initial locations for presence (ip in initvals)}
+\item{initinfo.p3}{(initvals) the proportion of initial locations for presence (ip in initvals)}
 
-\item{readinitbio.s}{if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated}
+\item{readinitbio3}{if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated}
 
-\item{initbio.s}{the vector of initial values read in if readinitbio.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity}
+\item{initbio3}{the vector of initial values read in if readinitbio3 == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity}
 
-\item{loctypeb}{bioentity (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
+\item{initbio.dist3}{bioentity (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
 
-\item{numinitb}{bioentity (initvals) the number of initial locations for presence}
+\item{initbio.n3}{bioentity (initvals) the number of initial locations for presence}
 
-\item{numorpropb}{bioentity (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+\item{initbio.norp3}{bioentity (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
 
-\item{propinitb}{bioentity (initvals) the proportion of initial locations for presence (ip in initvals)}
+\item{initbio.p3}{bioentity (initvals) the proportion of initial locations for presence (ip in initvals)}
 
 \item{plotmp}{if T plots of initial presence of information and species are generated}
 }
 \description{
-This function sets up all starting conditions, including the estimated effect size, the x,y coordinates of the nodes, the initial information locations, and the initial species locations. It runs functions \code{estinfo}, \code{genlocs}, and \code{initvals}. The next step after this is to address the adjacency matrices for communication and for dispersal.
+This function sets up all starting conditions, including the estimated effect size (but not direction), the x,y coordinates of the nodes, the initial information locations, and the initial species locations. It runs functions \code{estinfo}, \code{genlocs}, and \code{initvals}. The next step after this is to address the adjacency matrices for communication and for dispersal.
 }
 \details{
-Updated 2020-07-12
+Updated 2020-09-05
 }
 \examples{
-x2 <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=5, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=5, numorpropb='num', plotmp=T)
-x3 <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, xtx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=15, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=15, numorpropb='num', plotmp=T)
-x4.readxy <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=T, xymat2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo.s=F, loctypei='random', numiniti=2, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=3, numorpropb='num', plotmp=T)
+x2 <- setup2(maneffmean3s=0.5, maneffsd3s=0.5, maneffthresh3=0.5, sampeffort3=1, usethreshman3=T, readgeocoords3s=F, xrange3=c(0,50), yrange3=c(0,50), numnodes3=100, randgeo3=TRUE, readinitinfo3=F, initinfo.dist3='random', initinfo.n3=5, initinfo.norp3='num', readinitbio3=F, initbio.dist3='upedge', initbio.n3=5, initbio.norp3='num', plotmp=T)
+x3 <- setup2(maneffmean3s=0.5, maneffsd3s=0.5, maneffthresh3=0.5, sampeffort3=1, usethreshman3=T, readgeocoords3s=F, xrange3=c(0,50), yrange3=c(0,50), numnodes3=100, randgeo3=TRUE, readinitinfo3=F, initinfo.dist3='random', initinfo.n3=15, initinfo.norp3='num', readinitbio3=F, initbio.dist3='upedge', initbio.n3=15, initbio.norp3='num', plotmp=T)
+x4.readgeocoords3s <- setup2(maneffmean3s=0.5, maneffsd3s=0.5, maneffthresh3=0.5, sampeffort3=1, usethreshman3=T, readgeocoords3s=T, geocoords3s=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo3=F, initinfo.dist3='random', initinfo.n3=2, initinfo.norp3='num', readinitbio3=F, initbio.dist3='upedge', initbio.n3=3, initbio.norp3='num', plotmp=T)
 }
 \keyword{experiments}
 \keyword{simulation}

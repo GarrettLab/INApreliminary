@@ -1,39 +1,40 @@
 
 #' Set up starting conditions for INA scenario analysis
 #'
-#' This function sets up all starting conditions, including the estimated effect size, the x,y coordinates of the nodes, the initial information locations, and the initial species locations. It runs functions \code{estinfo}, \code{genlocs}, and \code{initvals}. The next step after this is to address the adjacency matrices for communication and for dispersal.
+#' This function sets up all starting conditions, including the estimated effect size (but not direction), the x,y coordinates of the nodes, the initial information locations, and the initial species locations. It runs functions \code{estinfo}, \code{genlocs}, and \code{initvals}. The next step after this is to address the adjacency matrices for communication and for dispersal.
 #'
-#' Updated 2020-07-12
+#' Updated 2020-09-05
 
-#' @param manredestab2 if T, the management reduces the probability of establishment by probability with mean efmn2 and sd efsd2; if F, the management reduces the probability of NOT establishing by the same
-#' @param efmn2 (estinfo) the underlying mean change in establishment probability (as a proportion)
-#' @param efsd2 (estinfo) the standard deviation of the effect
-#' @param efthr2 (estinfo) the threshold effect size for communicating about management (if efthr2 = 0 there is no threshold so communication can always occur)
-#' @param sampeffort2 (estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect
+#' @param maneffmean3s (estinfo) the underlying mean change in establishment probability (as a proportion)
+#' @param maneffsd3s (estinfo) the standard deviation of the effect
+#' @param maneffthresh3 (estinfo) the threshold effect size for communicating about management (if maneffthresh3 = 0 there is no threshold so communication can always occur)
+#' @param sampeffort3 (estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect
 
-#' @param readxymatj read in the xy coordinates for locations (readxymatj = T) or generate the xy coordinates by calling genlocs (readxymatj = F)
-#' @param xymat2 coordinates for node geographic locations, ncol= 2 (x,y) and nrow=number of nodes (to be read in if readorgenxy = 'read')
+#' @param usethreshman3 () if T, the threshold for management maneffthresh3 is used to determine whether communication occurs; communication only occurs if the observed management effect is greater than maneffthresh3
 
-#' @param extx2 (genlocs) range of x coordinates
-#' @param exty2 (genlocs) range of y coordinates
-#' @param nodnum2 (genlocs) the number of nodes (nn in genlocs)
-#' @param rand2 (genlocs) if TRUE then locations are randomly generated
+#' @param readgeocoords3s read in the xy coordinates for locations (readgeocoords3s = T) or generate the xy coordinates by calling genlocs (readgeocoords3s = F)
+#' @param geocoords3s coordinates for node geographic locations, ncol= 2 (x,y) and nrow=number of nodes (to be read in if readorgenxy = 'read')
 
-#' @param readinitinfo.s if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated
-#' @param initinfo.s the vector of initial values read in if readinitinfo.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information
+#' @param xrange3 (genlocs) range of x coordinates
+#' @param yrange3 (genlocs) range of y coordinates
+#' @param numnodes3 (genlocs) the number of nodes (nn in genlocs)
+#' @param randgeo3 (genlocs) if TRUE then locations are randomly generated
 
-#' @param loctypei info (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence
-#' @param numiniti info (initvals) the number of initial locations for presence
-#' @param numorpropi info (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion
-#' @param propiniti info (initvals) the proportion of initial locations for presence (ip in initvals)
+#' @param readinitinfo3 if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated
+#' @param initinfo3 the vector of initial values read in if readinitinfo3 == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information
 
-#' @param readinitbio.s if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated
-#' @param initbio.s the vector of initial values read in if readinitbio.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity
+#' @param initinfo.dist3 (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence
+#' @param initinfo.n3 (initvals) the number of initial locations for presence
+#' @param initinfo.norp3 (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion
+#' @param initinfo.p3 (initvals) the proportion of initial locations for presence (ip in initvals)
 
-#' @param loctypeb bioentity (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence
-#' @param numinitb bioentity (initvals) the number of initial locations for presence
-#' @param numorpropb bioentity (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion
-#' @param propinitb bioentity (initvals) the proportion of initial locations for presence (ip in initvals)
+#' @param readinitbio3 if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated
+#' @param initbio3 the vector of initial values read in if readinitbio3 == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity
+
+#' @param initbio.dist3 bioentity (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence
+#' @param initbio.n3 bioentity (initvals) the number of initial locations for presence
+#' @param initbio.norp3 bioentity (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion
+#' @param initbio.p3 bioentity (initvals) the proportion of initial locations for presence (ip in initvals)
 
 #' @param plotmp if T plots of initial presence of information and species are generated
 
@@ -41,15 +42,18 @@
 #' @export 
 
 #' @examples
-#' x2 <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, extx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=5, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=5, numorpropb='num', plotmp=T)
-#' x3 <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=F, xtx2=c(0,50), exty2=c(0,50), nodnum2=100, rand2=TRUE, readinitinfo.s=F, loctypei='random', numiniti=15, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=15, numorpropb='num', plotmp=T)
-#' x4.readxy <- setup2(manredestab2=T, efmn2=0.5, efsd2=0.5, efthr2=0.5, sampeffort2=1, usethresh2=T, readxymatj=T, xymat2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo.s=F, loctypei='random', numiniti=2, numorpropi='num', readinitbio.s=F, loctypeb='upedge', numinitb=3, numorpropb='num', plotmp=T)
+#' x2 <- setup2(maneffmean3s=0.5, maneffsd3s=0.5, maneffthresh3=0.5, sampeffort3=1, usethreshman3=T, readgeocoords3s=F, xrange3=c(0,50), yrange3=c(0,50), numnodes3=100, randgeo3=TRUE, readinitinfo3=F, initinfo.dist3='random', initinfo.n3=5, initinfo.norp3='num', readinitbio3=F, initbio.dist3='upedge', initbio.n3=5, initbio.norp3='num', plotmp=T)
+
+#' x3 <- setup2(maneffmean3s=0.5, maneffsd3s=0.5, maneffthresh3=0.5, sampeffort3=1, usethreshman3=T, readgeocoords3s=F, xrange3=c(0,50), yrange3=c(0,50), numnodes3=100, randgeo3=TRUE, readinitinfo3=F, initinfo.dist3='random', initinfo.n3=15, initinfo.norp3='num', readinitbio3=F, initbio.dist3='upedge', initbio.n3=15, initbio.norp3='num', plotmp=T)
+
+#' x4.readgeocoords3s <- setup2(maneffmean3s=0.5, maneffsd3s=0.5, maneffthresh3=0.5, sampeffort3=1, usethreshman3=T, readgeocoords3s=T, geocoords3s=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readinitinfo3=F, initinfo.dist3='random', initinfo.n3=2, initinfo.norp3='num', readinitbio3=F, initbio.dist3='upedge', initbio.n3=3, initbio.norp3='num', plotmp=T)
 
 
-setup2 <- function(manredestab2, efmn2, efsd2, efthr2, sampeffort2, usethresh2, readxymatj, xymat2, extx2, exty2, nodnum2, rand2, readinitinfo.s, initinfo.s, loctypei, numiniti, numorpropi, propiniti, readinitbio.s, initbio.s, loctypeb, numinitb, numorpropb, propinitb, plotmp=F){
+setup2 <- function(maneffmean3s, maneffsd3s, maneffthresh3, sampeffort3, usethreshman3, readgeocoords3s, geocoords3s, xrange3, yrange3, numnodes3, randgeo3, readinitinfo3, initinfo3, initinfo.dist3, initinfo.n3, initinfo.norp3, initinfo.p3, readinitbio3, initbio3, initbio.dist3, initbio.n3, initbio.norp3, initbio.p3, plotmp=F){
 
-if (usethresh2) {
-  infout <- estinfo(efmn=efmn2, efsd=efsd2, efthr=efthr2,   sampeffort=sampeffort2)
+
+if (usethreshman3) {
+  infout <- estinfo(maneffmean4s=maneffmean3s, maneffsd4s=maneffsd3s, maneffthresh4=maneffthresh3, sampeffort4=sampeffort3)
 } else {
   infout <- list()
   infout$com.yes <- T
@@ -57,44 +61,44 @@ if (usethresh2) {
 }
 
 
-if (readxymatj == F){
-  xymat2 <- genlocs(extx=extx2, exty=exty2, nn=nodnum2, rand=rand2)
+if (readgeocoords3s == F){
+  geocoords3s <- genlocs(xrange4=xrange3, yrange4=yrange3, numnodes4=numnodes3, randgeo4=randgeo3)
 }
 
 # generate initial locations for info if not supplied
-if (readinitinfo.s == FALSE) {
-  infovec <- initvals(xymat=xymat2, loctype=loctypei,    numinit=numiniti, numorprop=numorpropi, ip=propiniti) 
-} else if (readinitinfo.s == TRUE) {
-  infovec <- initinfo.s
+if (readinitinfo3 == FALSE) {
+  infovec <- initvals(geocoords4s=geocoords3s, dist4=initinfo.dist3, init.n4=initinfo.n3, norp4=initinfo.norp3, init.p4=initinfo.p3) 
+} else if (readinitinfo3 == TRUE) {
+  infovec <- initinfo3
 }
 
 # generate initial locations for bioentity establishment
 #   if not supplied
-if (readinitbio.s == FALSE) {
-  estabvec <- initvals(xymat=xymat2, loctype=loctypeb, numinit=numinitb, numorprop=numorpropb, ip=propinitb) 
-} else if (readinitbio.s == TRUE) {
-  estabvec <- initbio.s
+if (readinitbio3== FALSE) {
+  estabvec <- initvals(geocoords4s=geocoords3s, dist4=initbio.dist3, init.n4=initbio.n3, norp4=initbio.norp3, init.p4=initbio.p3) 
+} else if (readinitbio3 == TRUE) {
+  estabvec <- initbio3
 }
 
 if(plotmp){
-    plot(xymat2, main='Information, shaded = yes')
-    if(!is.null(dim(xymat2[infovec==1,]))){
-      points(xymat2[infovec==1,], pch=16)
+    plot(geocoords3s, main='Information, shaded = yes')
+    if(!is.null(dim(geocoords3s[infovec==1,]))){
+      points(geocoords3s[infovec==1,], pch=16)
     } 
-    else if(is.null(dim(xymat2[infovec==1,]))){
-      points(xymat2[infovec==1,][1], xymat2[infovec==1,][2], pch=16)
+    else if(is.null(dim(geocoords3s[infovec==1,]))){
+      points(geocoords3s[infovec==1,][1], geocoords3s[infovec==1,][2], pch=16)
     }
   }
 
 if(plotmp){
-    plot(xymat2, main='Bioentity establishment, shaded = yes')
-    if(!is.null(dim(xymat2[estabvec==1,]))){
-      points(xymat2[estabvec==1,], pch=16)
+    plot(geocoords3s, main='Bioentity establishment, shaded = yes')
+    if(!is.null(dim(geocoords3s[estabvec==1,]))){
+      points(geocoords3s[estabvec==1,], pch=16)
     } 
-    else if(is.null(dim(xymat2[estabvec==1,]))){
-      points(xymat2[estabvec==1,][1], xymat2[estabvec==1,][2], pch=16)
+    else if(is.null(dim(geocoords3s[estabvec==1,]))){
+      points(geocoords3s[estabvec==1,][1], geocoords3s[estabvec==1,][2], pch=16)
     }
   }
 
-  list(com.yes=infout$com.yes, obschange=infout$obschange, xymat2=xymat2, infovec=infovec, estabvec=estabvec)
+  list(com.yes=infout$com.yes, obschange=infout$obschange, geocoords3s=geocoords3s, infovec=infovec, estabvec=estabvec)
 }

@@ -4,29 +4,23 @@
 \alias{spreadstep}
 \title{Generate vector of status after one spread step}
 \usage{
-spreadstep(amat, vect1, diag1 = T, mattype = "fromto", max1 = T)
+spreadstep(amat, vect1)
 }
 \arguments{
 \item{amat}{the adjacency matrix, composed of 0s and 1s}
 
 \item{vect1}{status of nodes before spread, in terms of presence or absence of bioentity or information about management (a matrix with nrow=1 and ncol=number of nodes)}
-
-\item{diag1}{if T, diagonal is given value 1 (default is T)}
-
-\item{mattype}{'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks (default is 'fromto')}
-
-\item{max1}{if T, values in vect2 (the output vector) greater than 1 are replaced by 1 (default is T)}
 }
 \description{
-This function generates a vector of status after one spread step.  It assumes that the input adjacency matrix is composed of 0s and 1s
+This function generates a vector of status after one spread step.  It assumes that the input adjacency matrix is composed of 0s and 1s, and that the diagonal is all 1s.
 }
 \details{
-Updated 2020-06-03
+Updated 2020-09-05
 }
 \examples{
-x1 <- spreadstep(amat=matrix(c(1,1,0,0,1,1,0,0,1),ncol=3,byrow=T), vect1=matrix(c(1,0,0), ncol=3), mattype='fromto')
-x2 <- spreadstep(amat=matrix(c(1,1,0,0,1,1,0,0,1),ncol=3,byrow=T), vect1=matrix(c(1,0,0), ncol=3), mattype='tofrom')
-x3 <- spreadstep(amat=matrix(c(1,1,0,0,1,1,0,0,1),ncol=3,byrow=T), vect1=matrix(c(1,1,0), ncol=3), mattype='fromto', max1=F)
-x9 <- spreadstep(amat=matrix(c(0,1,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), vect1=c(1,1,1,0,0,0), mattype='fromto')
+x1 <- spreadstep(amat=matrix(c(1,1,0,0,1,1,0,0,1),ncol=3,byrow=T), vect1=matrix(c(1,0,0), ncol=3))
+x2 <- spreadstep(amat=matrix(c(1,1,0,0,1,1,0,0,1),ncol=3,byrow=T), vect1=matrix(c(1,0,0), ncol=3))
+x3 <- spreadstep(amat=matrix(c(1,1,0,0,1,1,0,0,1),ncol=3,byrow=T), vect1=matrix(c(1,1,0), ncol=3))
+x9 <- spreadstep(amat=matrix(c(0,1,0,0,0,0, 0,0,1,0,0,0, 0,0,0,1,0,0, 0,0,0,0,1,0, 0,0,0,0,0,1, 1,0,0,0,0,0),byrow=T,ncol=6), vect1=c(1,1,1,0,0,0))
 }
 \keyword{dispersal}

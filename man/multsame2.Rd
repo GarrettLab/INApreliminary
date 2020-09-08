@@ -5,197 +5,159 @@
 \title{Runs and summarizes multiple INA simulations with the same parameter values}
 \usage{
 multsame2(
-  nreals,
-  usethresh,
-  nsteps2,
-  xymatinn2,
-  readxymat2,
-  comamn2,
-  dispamn2,
-  readcomamn2,
-  readdispamn2,
-  manredestab22,
-  efmn22,
-  efsd22,
-  efthr22,
-  sampeffort22,
-  extx22,
-  exty22,
-  nodenum22,
-  rand22,
-  readinitinfo.s2,
-  initinfo.s2,
-  loctypei2,
-  numiniti2,
-  numorpropi2,
-  propiniti2,
-  readinitbio.s2,
-  initbio.s2,
-  loctypeb2,
-  numinitb2,
-  numorpropb2,
-  propinitb2,
-  distfcn2,
-  lktypecn2,
-  placn2,
-  plbcn2,
-  randpcn2,
-  tlinkcn2,
-  distfdn2,
-  lktypedn2,
-  pladn2,
-  plbdn2,
-  randpdn2,
-  tlinkdn2,
-  diag1cn2,
-  mattypecn2,
-  max1cn2,
-  diag1dn2,
-  mattypedn2,
-  max1dn2,
-  adpmn2,
-  adpsdn2,
-  padoptn2,
-  readpadoptn2,
-  estpmn2,
-  estpsdn2,
-  pestabn2,
-  readpestabn2,
-  plotmpn2 = F
+  nreals2,
+  usethreshman2,
+  ntimesteps2,
+  geocoords2,
+  readgeocoords2,
+  maneffdir2,
+  maneffmean2,
+  maneffsd2,
+  maneffthresh2,
+  sampeffort2,
+  xrange2,
+  yrange2,
+  numnodes2,
+  randgeo2,
+  readinitinfo2,
+  initinfo2,
+  initinfo.dist2,
+  initinfo.n2,
+  initinfo.norp2,
+  initinfo.p2,
+  readinitbio2,
+  initbio2,
+  initbio.dist2,
+  initbio.n2,
+  initbio.norp2,
+  initbio.p2,
+  readseam2,
+  seam2,
+  seamdist2,
+  seampla2,
+  seamplb2,
+  seamrandp2,
+  readbpam2,
+  bpam2,
+  bpamdist2,
+  bpampla2,
+  bpamplb2,
+  bpamrandp2,
+  probadoptmean2,
+  probadoptsd2,
+  probadoptvec2,
+  readprobadoptvec2,
+  probestabmean2,
+  probestabsd2,
+  readprobestabvec2,
+  probestabvec2,
+  doplot2 = F
 )
 }
 \arguments{
-\item{nreals}{number of realizations to be evaluated}
+\item{nreals2}{number of realizations to be evaluated}
 
-\item{usethresh}{if T, information is never present anywhere unless the management effect estimate exceeds the threshold}
+\item{usethreshman2}{if T, use the threshold for the management effect size estimate; thus, information is never present anywhere unless the management effect estimate exceeds the threshold}
 
-\item{nsteps2}{number of time steps to be evaluated}
+\item{ntimesteps2}{number of time steps to be evaluated}
 
-\item{xymatinn2}{matrix of x,y coordinates of nodes, read in if readxymat2=T}
+\item{geocoords2}{matrix of x,y coordinates of nodes, read in if readgeocoords2=T}
 
-\item{readxymat2}{if T, read in xymatinn2 - otherwise, generate it in each realization (related readxymat2=T and readorgenxy='read')}
+\item{readgeocoords2}{if T, read in geocoords2 - otherwise, generate it in each realization}
 
-\item{comamn2}{communication adjacency matrix, read in if readcomamn2=T}
+\item{maneffdir2}{if maneffdir2='decrease_estab', the management reduces the probability of establishment; if maneffdir2='increase_estab', the management reduces the probability that establishment does NOT occur}
 
-\item{dispamn2}{dispersal adjacency matrix, read in if readdispamn2=T}
+\item{maneffmean2}{(estinfo, estab) the underlying mean change in establishment probability (as a proportion)}
 
-\item{readcomamn2}{if T, the communication adjacency matrix is read in rather than being generated from the outset}
+\item{maneffsd2}{(estab) sd of management effect (same as maneffsd2 to function estinfo)}
 
-\item{readdispamn2}{if T, the dispersal adjacency matrix is read in rather than being generated from the outset}
+\item{maneffthresh2}{(estinfo) the threshold effect size for communicating about management (if maneffthresh2 = 0 there is no threshold so communication can always occur)}
 
-\item{manredestab22}{if T, the management reduces the probability of establishment by the indicated proportion; if F, the management reduces the probability of NOT establishing by the indicated proportion}
+\item{sampeffort2}{(estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect}
 
-\item{efmn22}{(estinfo) the underlying mean change in establishment probability (as a proportion)}
+\item{xrange2}{(genlocs) range of x coordinates}
 
-\item{efsd22}{(estinfo) the standard deviation of the effect}
+\item{yrange2}{(genlocs) range of y coordinates}
 
-\item{efthr22}{(estinfo) the threshold effect size for communicating about management (if efthr22 = 0 there is no threshold so communication can always occur)}
+\item{numnodes2}{(genlocs) the number of nodes}
 
-\item{sampeffort22}{(estinfo) sampling effort, where greater samping effort reduces the error in estimating the management effect}
+\item{randgeo2}{(genlocs) if TRUE then locations are randomly generated}
 
-\item{extx22}{(genlocs) range of x coordinates}
+\item{readinitinfo2}{info (setup2) if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated}
 
-\item{exty22}{(genlocs) range of y coordinates}
+\item{initinfo.dist2}{info (initvals) the pattern of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
 
-\item{nodenum22}{(genlocs) the number of nodes}
+\item{initinfo.n2}{info (initvals) the number of initial locations for presence}
 
-\item{rand22}{(genlocs) if TRUE then locations are randomly generated}
+\item{initinfo.norp2}{info (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
 
-\item{readinitinfo.s2}{info (setup2) if T, the initial values for the vector of starting locations for the presence of information are read in rather than generated}
+\item{initinfo.p2}{info (initvals) the proportion of initial locations for presence}
 
-\item{initinfo.s2}{info (setup2) the vector of initial values read in if readinitinfo.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information}
+\item{readinitbio2}{bio (setup2) if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated}
 
-\item{loctypei2}{info (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
+\item{initbio2}{bio (setup2) the vector of initial values read in if readinitbio2 == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity}
 
-\item{numiniti2}{info (initvals) the number of initial locations for presence}
+\item{initbio.dist2}{estab (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
 
-\item{numorpropi2}{info (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+\item{initbio.n2}{estab (initvals) the number of initial locations for presence}
 
-\item{propiniti2}{info (initvals) the proportion of initial locations for presence}
+\item{initbio.norp2}{estab (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
 
-\item{readinitbio.s2}{bio (setup2) if T, the initial values for the vector of starting locations for the presence of the bioentity are read in rather than generated}
+\item{initbio.p2}{estab (initvals) the proportion of initial locations for presence}
 
-\item{initbio.s2}{bio (setup2) the vector of initial values read in if readinitbio.s == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of the bioentity}
+\item{readseam2}{if T, the communication adjacency matrix is read in rather than being generated from the outset}
 
-\item{loctypeb2}{estab (initvals) the type of locations where initial presence occurs: 'random' indicates all equally likely, 'upedge' indicates that nodes closest to the upper edge have presence, 'rightedge' indicates that nodes closest to the right edge have presence}
+\item{seam2}{communication adjacency matrix, read in if readseam2=T}
 
-\item{numinitb2}{estab (initvals) the number of initial locations for presence}
+\item{seamdist2}{(genmovnet) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
 
-\item{numorpropb2}{estab (initvals) 'num' indicates initial number for presence, 'prop' indicates initial proportion}
+\item{seampla2}{(genmovnet) power law parameter a in ad^(-b)}
 
-\item{propinitb2}{estab (initvals) the proportion of initial locations for presence}
+\item{seamplb2}{(genmovnet) power law parameter b in ad^(-b)}
 
-\item{distfcn2}{com (genmovnet) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
+\item{seamrandp2}{(genmovnet) random case, probability of link}
 
-\item{lktypecn2}{com (genmovnet) link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
+\item{readbpam2}{if T, the dispersal adjacency matrix is read in rather than being generated from the outset}
 
-\item{placn2}{com (genmovnet) power law parameter a in ad^(-b)}
+\item{bpam2}{dispersal adjacency matrix, read in if readbpam2=T}
 
-\item{plbcn2}{com (genmovnet) power law parameter b in ad^(-b)}
+\item{bpamdist2}{(genmovnet) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
 
-\item{randpcn2}{com (genmovnet) random case, probability of link}
+\item{bpampla2}{(genmovnet) power law parameter a in ad^(-b)}
 
-\item{tlinkcn2}{com (genmovnet) threshold for whether link exists (probability in some cases); used if lktypecn2 = pa}
+\item{bpamplb2}{(genmovnet) power law parameter b in ad^(-b)}
 
-\item{distfdn2}{disp (genmovnet) the function of distance used to estimate movement probability - 'random' (not related to distance) or 'powerlaw'}
+\item{bpamrandp2}{(genmovnet) random case, probably of link}
 
-\item{lktypedn2}{disp (genmovnet) link type, pa is presence/absence (unweighted, occurence/non-occurence), pr is a probability of occurence, wtd1 is general weight}
+\item{probadoptmean2}{(makedec) mean probability of adopting management if informed}
 
-\item{pladn2}{disp (genmovnet) power law parameter a in ad^(-b)}
+\item{probadoptsd2}{(makedec) sd in truncated normal distribution of probability of adoption}
 
-\item{plbdn2}{disp (genmovnet) power law parameter b in ad^(-b)}
+\item{probadoptvec2}{vector of probabilities of adoption if informed for nodes in the network (\code{readprobadoptvec2} determines whether \code{probadoptvec2} is read in to \code{makedec} or generated within \code{makedec} based on \code{probadoptmean2} and \code{probadoptsd2})}
 
-\item{randpdn2}{disp (genmovnet) random case, probably of link}
+\item{readprobadoptvec2}{if T, then a VECTOR of probability of adoption values is read in; if F, \code{probadoptmean2} and \code{probadoptsd2} are used to generate the vector}
 
-\item{tlinkdn2}{disp (genmovnet) threshold for whether link exists (probability in some cases); used if lktypedn2 = pa (to be confirmed)}
+\item{probestabmean2}{(estab) mean probability of establishment (new or CONTINUED) in absence of management}
 
-\item{diag1cn2}{com (spreadstep) if T, diagonal of adj mat is given value 1}
+\item{probestabsd2}{(estab) sd in truncated normal distribution for probability of establishment in absence of management}
 
-\item{mattypecn2}{com (spreadstep) 'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks}
+\item{readprobestabvec2}{(estab) if T, then a vector \code{probestabvec2} is read in; otherwise the vector is generated using \code{probestabmean2} and \code{probestabsd2}}
 
-\item{max1cn2}{com (spreadstep) if T, values in vect2 greater than 1 are replaced by 1}
+\item{probestabvec2}{(estab) vector of probabilities of establishment (read in or generated when the function is run, depending on \code{readprobestabvec2} equal to T or F)}
 
-\item{diag1dn2}{disp (spreadstep) if T, diagonal of adj mat is given value 1}
+\item{doplot2}{if true plots of resulting presence of information and species are generated}
 
-\item{mattypedn2}{disp (spreadstep) 'fromto' indicates that rows are sources and columns are sinks, 'tofrom' indicates that columns are sources and rows are sinks}
-
-\item{max1dn2}{disp (spreadstep) if T, values in vect2 greater than 1 are replaced by 1}
-
-\item{adpmn2}{(makedec) mean probability of adopting management if informed}
-
-\item{adpsdn2}{(makedec) sd in truncated normal distribution of probability of adoption}
-
-\item{estpmn2}{(estab) mean probability of establishment (new or CONTINUED) in absence of management}
-
-\item{estpsdn2}{(estab) sd in truncated normal distribution for probability of establishment in absence of management}
-
-\item{pestabn2}{(estab) vector of probabilities of establishment (read in or generated when the function is run, depending on \code{readpestab} equal to T or F)}
-
-\item{readpestabn2}{(estab) if T, then a vector \code{pestabn2} is read in; otherwise the vector is generated using \code{estpmn2} and \code{estpsdn2}}
-
-\item{plotmpn2}{if true plots of resulting presence of information and species are generated}
-
-\item{vect1cn2}{com (spreadstep) status of nodes before spread}
-
-\item{vect1dn2}{disp (spreadstep) status of nodes before spread}
-
-\item{padopt2}{vector of probabilities of adoption if informed for nodes in the network (\code{readpadopt} determines whether \code{padopt} is read in to \code{makedec} or generated within \code{makedec} based on \code{adpm} and \code{adpsd})}
-
-\item{readpadopt2}{if T, then a VECTOR of padopt values is read in; if F, \code{adpm} and \code{adpsd} are used to generate the vector}
-
-\item{efmnn2}{(estab) mean management effect (proportional reduction in estabp) (same as efmn22 to function estinfo)}
-
-\item{efsdn2}{(estab) sd of management effect (same as efsd22 to function estinfo)}
+\item{initinfo.s2}{info (setup2) the vector of initial values read in if readinitinfo2 == T, a vector with lenth equal to the number of nodes and entries 1s or 0s with 1s indicating the initial presence of information}
 }
 \description{
-This function runs and summarizes multiple INA simulations with the same parameter values.  (It uses functions estinfo, genlocs, initvals, setup2, genmovnet, spreadstep, makedec, estab, and ntsteps2.)
+This function runs and summarizes multiple INA simulations with the same parameter values.  (It uses INA functions estinfo, genlocs, initvals, setup2, genmovnet, spreadstep, makedec, estab, and ntsteps2.)
 }
 \details{
-Updated 2020-07-07
+Updated 2020-09-05
 }
 \examples{
-x5 <- multsame2(nreals=10, nsteps2=3, usethresh=F, readxymat2=T, xymatinn2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, manredestab22=T, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=NA, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=NA, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=0.1, padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
-x3 <- multsame2(nreals=2,nsteps=3, usethresh=F, readxymat2=T, xymatinn2=matrix(runif(n=100)*100,byrow=T,ncol=2), readcomamn2=F, readdispamn2=F, manredestab22=T, efmn22=0.5, efsd22=0.1, efthr22=0.5, sampeffort22=1, extx22=NA, exty22=NA, nodenum22=NA, rand22=NA, readinitinfo.s2=F, loctypei2='random', numiniti2=5, numorpropi2='num', propiniti2=0.05, readinitbio.s2=F, loctypeb2='upedge', numinitb2=5, numorpropb2='num', propinitb2=0.05, distfcn2='powerlaw', lktypecn2='pa', placn2=1, plbcn2=1, randpcn2=NA, tlinkcn2=0.1, distfdn2='powerlaw', lktypedn2='pa', pladn2=1, plbdn2=1, randpdn2=NA, tlinkdn2=0.1, diag1cn2=T, mattypecn2='fromto', max1cn2=T, diag1dn2=T, mattypedn2='fromto', max1dn2=T, adpmn2=0.5, adpsdn2=c(0,1), padoptn2=NA, readpadoptn2=F, estpmn2=0.5, estpsdn2=0.1, pestabn2=NA, readpestabn2=F, plotmpn2=F)
+x5 <- multsame2(nreals2=10, ntimesteps2=3, usethreshman2=F, readgeocoords2=T, geocoords2=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), maneffdir2='decrease_estab', maneffmean2=0.5, maneffsd2=0.1, maneffthresh2=0.5, sampeffort2=1, xrange2=NA, yrange2=NA, numnodes2=NA, randgeo2=NA, readinitinfo2=F, initinfo.dist2='random', initinfo.n2=5, initinfo.norp2='num', initinfo.p2=NA, readinitbio2=F, initbio.dist2='upedge', initbio.n2=5, initbio.norp2='num', initbio.p2=NA, readseam2=F, seam2=NA, seamdist2='powerlaw', seampla2=1, seamplb2=1, seamrandp2=NA, readbpam2=F, bpam2=NA, bpamdist2='powerlaw', bpampla2=1, bpamplb2=1, bpamrandp2=NA, probadoptmean2=0.5, probadoptsd2=0.1, probadoptvec2=NA, readprobadoptvec2=F, probestabmean2=0.5, probestabsd2=0.1, readprobestabvec2=F, probestabvec2=NA, doplot2=F)
+x3 <- multsame2(nreals2=2,ntimesteps=3, usethreshman2=F, readgeocoords2=T, geocoords2=matrix(runif(n=100)*100,byrow=T,ncol=2), maneffdir2='decrease_estab', maneffmean2=0.5, maneffsd2=0.1, maneffthresh2=0.5, sampeffort2=1, xrange2=NA, yrange2=NA, numnodes2=NA, randgeo2=NA, readinitinfo2=F, initinfo.dist2='random', initinfo.n2=5, initinfo.norp2='num', initinfo.p2=0.05, readinitbio2=F, initbio.dist2='upedge', initbio.n2=5, initbio.norp2='num', initbio.p2=0.05, readseam2=F, seam2=NA, seamdist2='powerlaw', seampla2=1, seamplb2=1, seamrandp2=NA, readbpam2=F, bpam2=NA, bpamdist2='powerlaw', bpampla2=1, bpamplb2=1, bpamrandp2=NA, probadoptmean2=0.5, probadoptsd2=c(0,1), probadoptvec2=NA, readprobadoptvec2=F, probestabmean2=0.5, probestabsd2=0.1, readprobestabvec2=F, probestabvec2=NA, doplot2=F)
 }
 \keyword{experiments}
 \keyword{simulation}
