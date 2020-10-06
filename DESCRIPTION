@@ -1,7 +1,7 @@
 Package: INApreliminary
-Title: Impact network analysis
-Version: 0.0.2
-Date: 2020-09-08
+Title: Impact Network Analysis
+Version: 0.9.2
+Date: 2020-10-06
 Authors@R: person("K. A.", "Garrett", email = "karengarrett@ufl.edu", role = c("aut", "cre"))
 Description: This package provides tools for performing impact network analysis (INA) and related analyses. INA is a framework for evaluating how technologies do or do not successfully manage species or populations, in the context of the linked socioeconomic networks of communication and influence, and the biophysical networks of technology implementation and biological spread. The INA package in the R programming environment provides tools for scenario analysis to evaluate the likely outcomes from a range of regional management strategies.  These strategies may include investment in surveillance, training, subsidies supporting management technology adoption, and improvements to management technologies.
 Depends: R (>= 3.3.2)

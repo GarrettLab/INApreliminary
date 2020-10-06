@@ -3,11 +3,12 @@
 #'
 #' This function implements and summarizes multiple simulations across a designated range of parameter values
 #'
-#' Updated 2020-09-05
+#' Updated 2020-10-06
 
 #' @param nreals number of realizations to be evaluated
 #' @param ntimesteps number of time steps to be evaluated
 #' @param doplot if true, plots of resulting presence of information and bioentity are generated
+#' @param outputvol output volume, where outputvol='less' excludes the list element $multdetails from output, and outputvol='more' includes it in output.  $multdetails becomes large quickly for many realizations for large matrices so outputvol='less' would be desirable for extensive analyses
 
 #' @param readgeocoords if T, read in geocoords - otherwise, generate it in each realization
 #' @param geocoords matrix of x,y coordinates of nodes
@@ -102,8 +103,15 @@
 
 #' sens.exp2a <- INAscene(nreals=10, ntimesteps=10, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='prop', initinfo.n=NA, initinfo.p=0.05, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='prop', initbio.n=NA, initbio.p=0.05,  initbio.dist='upedge', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffdir='decrease_estab', maneffmean=0.5, maneffsd=0.2, usethreshman=F, maneffthresh=NA, sampeffort=2) 
 
+#' sens.exp2a <- INAscene(nreals=10, ntimesteps=10, doplot=F, outputvol='less', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='prop', initinfo.n=NA, initinfo.p=0.05, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='prop', initbio.n=NA, initbio.p=0.05,  initbio.dist='upedge', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffdir='decrease_estab', maneffmean=0.5, maneffsd=0.2, usethreshman=F, maneffthresh=NA, sampeffort=2) 
 
-INAscene <- function(nreals, ntimesteps, doplot=F, readgeocoords, geocoords=NA, numnodes=NA, xrange=NA, yrange=NA, randgeo=NA, readinitinfo, initinfo=NA, initinfo.norp=NA, initinfo.n=NA, initinfo.p=NA, initinfo.dist=NA, readinitbio, initbio=NA, initbio.norp=NA, initbio.n=NA, initbio.p=NA,  initbio.dist=NA, readseam, seam=NA, seamdist=NA, seamrandp=NA, seampla=NA, seamplb=NA, readbpam, bpam=NA, bpamdist=NA, bpamrandp=NA, bpampla=NA, bpamplb=NA, readprobadoptvec, probadoptvec=NA, probadoptmean=NA, probadoptsd=NA, readprobestabvec, probestabvec=NA, probestabmean=NA, probestabsd=NA, maneffdir=NA, maneffmean=NA, maneffsd=NA, usethreshman, maneffthresh=NA, sampeffort=NA) {
+
+
+INAscene <- function(nreals, ntimesteps, doplot=F, outputvol='more', readgeocoords, geocoords=NA, numnodes=NA, xrange=NA, yrange=NA, randgeo=NA, readinitinfo, initinfo=NA, initinfo.norp=NA, initinfo.n=NA, initinfo.p=NA, initinfo.dist=NA, readinitbio, initbio=NA, initbio.norp=NA, initbio.n=NA, initbio.p=NA,  initbio.dist=NA, readseam, seam=NA, seamdist=NA, seamrandp=NA, seampla=NA, seamplb=NA, readbpam, bpam=NA, bpamdist=NA, bpamrandp=NA, bpampla=NA, bpamplb=NA, readprobadoptvec, probadoptvec=NA, probadoptmean=NA, probadoptsd=NA, readprobestabvec, probestabvec=NA, probestabmean=NA, probestabsd=NA, maneffdir=NA, maneffmean=NA, maneffsd=NA, usethreshman, maneffthresh=NA, sampeffort=NA) {
+
+### error message(s)
+
+if(maneffdir != 'decrease_estab' & maneffdir != 'increase_estab'){stop('Parameter maneffdir must be either increase_estab or decrease_estab')}
 
 ### prepare the output matrix, taking into account which
 ###   variables are used, as a function of which options
@@ -328,5 +336,10 @@ for (j22 in 1:ncombs) {
 
 }
 
-  list(multdetails=multdetails, multout=multout)
+if (outputvol=='more') {
+    list(multdetails=multdetails, multout=multout)
+} else if (outputvol=='less'){
+    list(multout=multout)
+}
+
 }

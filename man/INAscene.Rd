@@ -8,6 +8,7 @@ INAscene(
   nreals,
   ntimesteps,
   doplot = F,
+  outputvol = "more",
   readgeocoords,
   geocoords = NA,
   numnodes = NA,
@@ -60,6 +61,8 @@ INAscene(
 \item{ntimesteps}{number of time steps to be evaluated}
 
 \item{doplot}{if true, plots of resulting presence of information and bioentity are generated}
+
+\item{outputvol}{output volume, where outputvol='less' excludes the list element $multdetails from output, and outputvol='more' includes it in output.  $multdetails becomes large quickly for many realizations for large matrices so outputvol='less' would be desirable for extensive analyses}
 
 \item{readgeocoords}{if T, read in geocoords - otherwise, generate it in each realization}
 
@@ -153,7 +156,7 @@ INAscene(
 This function implements and summarizes multiple simulations across a designated range of parameter values
 }
 \details{
-Updated 2020-09-05
+Updated 2020-10-06
 }
 \examples{
 j25.readgeocoords <- INAscene(nreals=3, ntimesteps=3, doplot=F, readgeocoords=T, geocoords=matrix(c(1,1, 1,2, 1,3, 2,1, 2,2, 2,3),byrow=T,ncol=2), numnodes=NA, xrange=NA, yrange=NA, randgeo=F, readinitinfo=T, initinfo=c(1,1,1,0,0,0), initinfo.norp=NA, initinfo.n=NA, initinfo.p=NA, initinfo.dist=NA, readinitbio=T, initbio=c(0,0,0,1,1,1), initbio.norp=NA, initbio.n=NA, initbio.p=NA,  initbio.dist=NA, readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffdir='decrease_estab', maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
@@ -171,6 +174,7 @@ plot(jt2$seamplb, jt2$mdec, xlab='Power law parameter b in ad^(-b) for communica
 plot(jt2$seamplb, jt2$mcom, xlab='Power law parameter b in ad^(-b) for communication links', ylab='Proportion nodes with information about technology', xlim=c(0,2), ylim=c(0,1))
 j25.seamrandp <- INAscene(nreals=3, ntimesteps=3, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,10), yrange=c(0,20), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='num', initinfo.n=5, initinfo.p=NA, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='num', initbio.n=5, initbio.p=NA,  initbio.dist='random', readseam=F, seam=NA, seamdist='random', seamrandp=c(0.01,0.05,0.1,0.5), seampla=NA, seamplb=NA, readbpam=F, bpam=NA, bpamdist='random', bpamrandp=0.1, bpampla=NA, bpamplb=NA, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.1, probadoptsd=0.1, readprobestabvec=F, probestabvec=NA, probestabmean=0.1, probestabsd=0.1, maneffdir='decrease_estab', maneffmean=0.5, maneffsd=0.1, usethreshman=F, maneffthresh=NA, sampeffort=NA) 
 sens.exp2a <- INAscene(nreals=10, ntimesteps=10, doplot=F, readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='prop', initinfo.n=NA, initinfo.p=0.05, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='prop', initbio.n=NA, initbio.p=0.05,  initbio.dist='upedge', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffdir='decrease_estab', maneffmean=0.5, maneffsd=0.2, usethreshman=F, maneffthresh=NA, sampeffort=2) 
+sens.exp2a <- INAscene(nreals=10, ntimesteps=10, doplot=F, outputvol='less', readgeocoords=F, geocoords=NA, numnodes=50, xrange=c(0,50), yrange=c(0,50), randgeo=T, readinitinfo=F, initinfo=NA, initinfo.norp='prop', initinfo.n=NA, initinfo.p=0.05, initinfo.dist='random', readinitbio=F, initbio=NA, initbio.norp='prop', initbio.n=NA, initbio.p=0.05,  initbio.dist='upedge', readseam=F, seam=NA, seamdist='powerlaw', seamrandp=NA, seampla=1, seamplb=0.5, readbpam=F, bpam=NA, bpamdist='powerlaw', bpamrandp=NA, bpampla=1, bpamplb=0.5, readprobadoptvec=F, probadoptvec=NA, probadoptmean=0.5, probadoptsd=0.2, readprobestabvec=F, probestabvec=NA, probestabmean=0.5, probestabsd=0.2, maneffdir='decrease_estab', maneffmean=0.5, maneffsd=0.2, usethreshman=F, maneffthresh=NA, sampeffort=2) 
 }
 \keyword{experiments}
 \keyword{simulation}
