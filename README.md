@@ -14,7 +14,7 @@ library(INApreliminary)
 
 ### A general reference for impact network analysis is
 
-Garrett KA. 2018. Impact network analysis: Evaluating the success of interventions. PeerJ Preprints 6:e27037v1 https://doi.org/10.7287/peerj.preprints.27037v1
+Garrett, K. A. 2020. Impact network analysis and the INA R package: Decision support for regional management interventions. bioRxiv 2020.11.08.373621. https://www.biorxiv.org/content/10.1101/2020.11.08.373621v1 
 
 ### An example of application of the functions in this preliminary version is
 
