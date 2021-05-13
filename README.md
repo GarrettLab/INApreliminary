@@ -18,7 +18,7 @@ Garrett, K. A. 2021. User guide to impact network analysis (INA). CGIAR Research
 
 Garrett, K. A. 2021. Impact network analysis and the INA R package: Decision support for regional management interventions. Methods in Ecology and Evolution, in press. (Preprint version available at bioRxiv 2020.11.08.373621. https://www.biorxiv.org/content/10.1101/2020.11.08.373621v1)
 
-### Examples of application of the functions in version are
+### Examples of application are
 
 Andersen, K. F., C. E. Buddenhagen, P. Rachkara, R. Gibson, S. Kalule, D. Phillips, and K. A. Garrett. 2019. Modeling epidemics in seed systems and landscapes to guide management strategies: The case of sweetpotato in Northern Uganda. Phytopathology 109:1519-1532. Open access link: https://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-03-18-0072-R 
 
