@@ -12,9 +12,11 @@ devtools::install_github("GarrettLab/INApreliminary")
 
 library(INApreliminary)
 
-### A general reference for impact network analysis is
+### General references for impact network analysis are
 
-Garrett, K. A. 2020. Impact network analysis and the INA R package: Decision support for regional management interventions. bioRxiv 2020.11.08.373621. https://www.biorxiv.org/content/10.1101/2020.11.08.373621v1 
+Garrett, K. A. 2021. User guide to impact network analysis (INA). CGIAR Research Program on Roots, Tubers and Bananas (RTB). RTB User Guide. No. 2021-4. Lima, Peru. https://cgspace.cgiar.org/handle/10568/111326
+
+Garrett, K. A. 2021. Impact network analysis and the INA R package: Decision support for regional management interventions. Methods in Ecology and Evolution, in press. (Preprint version available at bioRxiv 2020.11.08.373621. https://www.biorxiv.org/content/10.1101/2020.11.08.373621v1)
 
 ### An example of application of the functions in this preliminary version is
 
