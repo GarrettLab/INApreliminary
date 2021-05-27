@@ -20,6 +20,8 @@ Garrett, K. A. 2021b. Impact network analysis and the INA R package: Decision su
 
 ### Vignettes illustrating analyses in Garrett 2021b
 
+Versions of these vignettes are also included in this depository as pdfs
+
 V1. Identifying key sampling locations for smart surveillance using the smartsurv function. (Exp 1 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V1-smartsurv-function-Exp-1.pdf 
 
 V2. Smaller functions that can create system components for the INAscene function. Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V2-components-of-INAscene-function.pdf 
