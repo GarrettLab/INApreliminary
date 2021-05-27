@@ -20,15 +20,15 @@ Garrett, K. A. 2021b. Impact network analysis and the INA R package: Decision su
 
 ### Vignettes illustrating analyses in Garrett 2021b
 
-Identifying key sampling locations for smart surveillance using the smartsurv function. (Exp 1 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V1-smartsurv-function-Exp-1.pdf 
+V1. Identifying key sampling locations for smart surveillance using the smartsurv function. (Exp 1 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V1-smartsurv-function-Exp-1.pdf 
 
-Smaller functions that can create system components for the INAscene function. Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V2-components-of-INAscene-function.pdf 
+V2. Smaller functions that can create system components for the INAscene function. Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V2-components-of-INAscene-function.pdf 
 
-Evaluating potential adaptation plans for regional management under global change using the INAscene function. (Exp 2 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V3-INAscene-for-project-evaluation-Exp-2.pdf 
+V3. Evaluating potential adaptation plans for regional management under global change using the INAscene function. (Exp 2 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V3-INAscene-for-project-evaluation-Exp-2.pdf 
 
-Evaluating the likelihood of project success in scenario analyses for regional management using the INAscene function. (Exp 3 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V4-INAscene-for-adaptation-planning-Exp-3.pdf
+V4. Evaluating the likelihood of project success in scenario analyses for regional management using the INAscene function. (Exp 3 in Garrett 2021b) Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V4-INAscene-for-adaptation-planning-Exp-3.pdf
 
-How function speed scales with node number: V5 How function speed scales with node number. Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V5-How-function-speed-scales-with-node-number.pdf
+V5. How function speed scales with node number: V5 How function speed scales with node number. Link: https://www.garrettlab.com/wp-content/uploads/2020/10/V5-How-function-speed-scales-with-node-number.pdf
 
 ### Examples of published applications
 
