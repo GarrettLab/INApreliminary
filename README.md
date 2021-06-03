@@ -1,6 +1,6 @@
 # INApreliminary
 
-This preliminary version of the INA (impact network analysis) R package is available.
+This is a preliminary version of the INA (impact network analysis) R package.  For the current version, please see GarrettLab/INA
 
 ### The following commands can be used to install and load the INApreliminary package in R
 
